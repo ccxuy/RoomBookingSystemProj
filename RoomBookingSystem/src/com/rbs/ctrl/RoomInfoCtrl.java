@@ -1,8 +1,8 @@
-package com.rbc.ctrl;
+package com.rbs.ctrl;
 
 import java.util.Date;
 
-import com.rbc.model.RoomInfo;
+import com.rbs.model.RoomInfo;
 
 public class RoomInfoCtrl {
 

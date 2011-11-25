@@ -1,4 +1,4 @@
-package com.rbc.dbAccess;
+package com.rbs.dbAccess;
 
 import java.sql.Connection;
 

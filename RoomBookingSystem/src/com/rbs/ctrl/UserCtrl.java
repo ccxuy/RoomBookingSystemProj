@@ -1,6 +1,6 @@
-package com.rbc.ctrl;
+package com.rbs.ctrl;
 
-import com.rbc.model.User;
+import com.rbs.model.User;
 
 public class UserCtrl extends RoomInfoCtrl {
 

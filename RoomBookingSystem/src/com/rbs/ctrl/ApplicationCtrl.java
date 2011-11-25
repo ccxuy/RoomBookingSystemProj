@@ -1,8 +1,8 @@
-package com.rbc.ctrl;
+package com.rbs.ctrl;
 
 import java.util.List;
 
-import com.rbc.model.Application;
+import com.rbs.model.Application;
 
 public class ApplicationCtrl {
 

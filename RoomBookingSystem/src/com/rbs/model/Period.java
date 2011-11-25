@@ -1,4 +1,4 @@
-package com.rbc.model;
+package com.rbs.model;
 
 import java.util.Date;
 

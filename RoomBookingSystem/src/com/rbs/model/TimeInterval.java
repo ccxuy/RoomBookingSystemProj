@@ -1,4 +1,4 @@
-package com.rbc.model;
+package com.rbs.model;
 
 import java.util.Date;
 
@@ -6,11 +6,11 @@ public class TimeInterval {
 
 	private Date timeBegin;
 	private Date timeEnd;
-	private int period;
+	private Period period;
 	public TimeInterval() {
 		super();
 	}
-	public TimeInterval(Date timeBegin, Date timeEnd, int period) {
+	public TimeInterval(Date timeBegin, Date timeEnd, Period period) {
 		super();
 		this.timeBegin = timeBegin;
 		this.timeEnd = timeEnd;
@@ -28,11 +28,12 @@ public class TimeInterval {
 	public void setTimeEnd(Date timeEnd) {
 		this.timeEnd = timeEnd;
 	}
-	public int getPeriod() {
+	public Period getPeriod() {
 		return period;
 	}
-	public void setPeriod(int period) {
+	public void setPeriod(Period period) {
 		this.period = period;
 	}
+	
 
 }

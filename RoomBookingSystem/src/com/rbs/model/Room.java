@@ -1,4 +1,4 @@
-package com.rbc.model;
+package com.rbs.model;
 public class Room {
 
 	private String roomNum;
