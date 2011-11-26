@@ -1,5 +1,7 @@
 package com.rbs.model;
 
+import java.util.UUID;
+
 public class User {
 
 	private String uid;
@@ -11,6 +13,17 @@ public class User {
 
 	public User() {
 		super();
+	}
+
+	public User(String name, String password, String permission, String phone,
+			String email) {
+		super();
+		this.setUid(UUID.randomUUID().toString());
+		this.name = name;
+		this.password = password;
+		this.permission = permission;
+		this.phone = phone;
+		this.email = email;
 	}
 
 	public User(String uid, String name, String password, String permission,

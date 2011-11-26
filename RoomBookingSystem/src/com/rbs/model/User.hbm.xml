@@ -1,23 +1,28 @@
 <?xml version="1.0"?>
-<!DOCTYPE hibernate-mapping PUBLIC 
-"-//Hibernate/Hibernate Mapping DTD 3.0//EN" 
-"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
-<!-- Generated 2011-11-25 1:28:36 by Hibernate Tools 3.4.0.CR1 -->
-<hibernate-mapping package="com.rbs.model">
-	<class name="com.rbs.model.User" table="user">
-		<id column="uid" length="60" name="uid" type="java.lang.String">
-			<column name="UID" />
-			<generator class="uuid.string" />
-		</id>
-		<property column="name" generated="never" lazy="false"
-			length="45" name="name" type="java.lang.String" />
-		<property column="password" generated="never" lazy="false"
-			length="45" name="password" type="java.lang.String" />
-		<property column="group" generated="never" lazy="false"
-			length="45" name="permission" type="java.lang.String" />
-		<property column="phone" generated="never" lazy="false"
-			length="45" name="phone" type="java.lang.String" />
-		<property column="email" generated="never" lazy="false"
-			length="45" name="email" type="java.lang.String" />
-	</class>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+                                   "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 2011-11-26 16:33:30 by Hibernate Tools 3.4.0.CR1 -->
+<hibernate-mapping>
+ <class name="com.rbs.model.User" table="USER">
+  <id name="uid" type="java.lang.String">
+   <column name="UID"/>
+   <generator class="assigned"/>
+  </id>
+  <property generated="never" lazy="false" name="name" type="java.lang.String">
+   <column name="NAME"/>
+  </property>
+  <property generated="never" lazy="false" name="password" type="java.lang.String">
+   <column name="PASSWORD"/>
+  </property>
+  <property generated="never" lazy="false"
+   name="permission" type="java.lang.String">
+   <column name="PERMISSION"/>
+  </property>
+  <property generated="never" lazy="false" name="phone" type="java.lang.String">
+   <column name="PHONE"/>
+  </property>
+  <property generated="never" lazy="false" name="email" type="java.lang.String">
+   <column name="EMAIL"/>
+  </property>
+ </class>
 </hibernate-mapping>

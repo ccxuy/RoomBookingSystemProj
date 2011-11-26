@@ -14,7 +14,6 @@ public class TestHibernate extends TestCase {
 	
 	@Override
 	protected void setUp() throws Exception {
-		System.out.println("START");
 		// A SessionFactory is set up once for an application
         sessionFactory = new Configuration()
                 .configure() // configures settings from hibernate.cfg.xml
@@ -28,19 +27,26 @@ public class TestHibernate extends TestCase {
 		}
 	}
 	public void testBasicUsage() {
-        System.out.println("SET UP");
-		System.out.println("BEGIN");
 		// create a couple of events...
 		Session session = sessionFactory.openSession();
 		session.beginTransaction();
-
-		//Begin
-		User u = new User("abc","name","123","applicant","123","1@1.1");
-		
-		session.save(u);
-		
+		User u1 = new User("name","123","applicant","123","1@1.1");
+		User u2 = new User("name1","123","applicant","123","1@1.1");
+		System.out.println("SAVE");
+		session.save(u1);
+		session.save(u2);
 		session.getTransaction().commit();
 		session.close();
+		
+		// now lets pull events from the database and list them
+		session = sessionFactory.openSession();
+        session.beginTransaction();
+        List result = session.createQuery( "from Event" ).list();
+		for ( User u : (List<User>) result ) {
+			System.out.println( "User (" + u.getName() + ") : " + u.getUid() );
+		}
+        session.getTransaction().commit();
+        session.close();
 
 	}
 }
