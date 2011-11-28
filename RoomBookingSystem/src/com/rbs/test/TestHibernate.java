@@ -41,7 +41,7 @@ public class TestHibernate extends TestCase {
 		// now lets pull events from the database and list them
 		session = sessionFactory.openSession();
         session.beginTransaction();
-        List result = session.createQuery( "from Event" ).list();
+        List result = session.createQuery( "from User" ).list();
 		for ( User u : (List<User>) result ) {
 			System.out.println( "User (" + u.getName() + ") : " + u.getUid() );
 		}
