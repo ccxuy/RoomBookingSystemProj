@@ -1,6 +1,7 @@
 package com.rbs.ctrl;
 
 import java.util.Calendar;
+import java.util.LinkedList;
 import java.util.List;
 
 import com.rbs.model.Application;
@@ -141,7 +142,7 @@ public class ApplicationCtrl {
 	 * @return 被分割时间后的application们...如果不能分割, 返回null
 	 */
 	public List<RoomInfo> splitApplicationTimeFromRoomInfo(Application app,RoomInfo ri){
-		List<RoomInfo> res = null;
+		List<RoomInfo> res = new LinkedList<RoomInfo>();
 		//check err
 		if(isAvailable(app, ri)!=1){
 			return null;
@@ -166,13 +167,31 @@ public class ApplicationCtrl {
 		//检查end边界
 		if(appEnd.compareTo(riEnd)!=0){
 			RoomInfo riC = ri.clone();
-			riC.setDateEnd(app.getDateBegin());
+			riC.setDateBegin(app.getDateEnd());
 			res.add(riC);
 		}
+		RoomInfo riB = ri.clone();
+		riB.setDateBegin(app.getDateBegin());
+		riB.setDateEnd(app.getDateEnd());
 		
+		//help:需要清空Calendar吗??
+		appBegin.setTime(app.getTimeBegin());
+		appEnd.setTime(app.getTimeEnd());
+		riBegin.setTime(ri.getTimeBegin());
+		riEnd.setTime(ri.getTimeEnd());
 		//检查time
 		//检查begin边界
+		if(appBegin.compareTo(riBegin)!=0){
+			RoomInfo riA = riB.clone();
+			riA.setTimeEnd(app.getTimeBegin());
+			res.add(riA);
+		}
 		//检查end边界
-		return null;
+		if(appEnd.compareTo(riEnd)!=0){
+			RoomInfo riC = riB.clone();
+			riC.setTimeBegin(app.getTimeEnd());
+			res.add(riC);
+		}
+		return res;
 	}
 }
