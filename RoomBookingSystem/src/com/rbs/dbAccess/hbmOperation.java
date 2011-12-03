@@ -30,6 +30,15 @@ public class hbmOperation {
 		}
 	}
 
+	public int save(Object o){
+		Session session = sessionFactory.openSession();
+		session.beginTransaction();
+			session.save(o);
+		session.getTransaction().commit();
+		session.close();
+		return this.SUCCESS;
+	}
+	
 	public int save(List l){
 		Session session = sessionFactory.openSession();
 		session.beginTransaction();
@@ -40,7 +49,22 @@ public class hbmOperation {
 		session.close();
 		return this.SUCCESS;
 	}
+	
+	public int update(List l){
+		return this.FAIL;
+	}
+	public int update(Object o){
+		return this.FAIL;
+	}
+	
+	public int delete(Object o){
+		return this.FAIL;
+	}
 
+	public int query(Object o){
+		return this.FAIL;
+	}
+	
 	public int query(String hql){
 		
 		return this.SUCCESS;

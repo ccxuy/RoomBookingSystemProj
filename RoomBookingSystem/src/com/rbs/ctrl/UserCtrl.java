@@ -11,7 +11,7 @@ public class UserCtrl extends RoomInfoCtrl {
 	public final String SUCCESS = "SUCCESS";
 	
 
-	public final String ROLE_NOTREG = "ROLE_NOTREG";
+	public final String R_NOTREG = "not registered";
 	public final String ROLE_USER = "ROLE_USER";
 	public final String ROLE_MGR = "ROLE_MGR";
 	public final String ROLE_ADM = "ROLE_ADM";
@@ -27,6 +27,7 @@ public class UserCtrl extends RoomInfoCtrl {
 	 */
 	public void logout() {
 		throw new UnsupportedOperationException();
+		
 	}
 
 	/**

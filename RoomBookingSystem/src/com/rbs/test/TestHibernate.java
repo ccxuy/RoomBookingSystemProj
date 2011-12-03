@@ -34,7 +34,7 @@ public class TestHibernate extends TestCase {
 		User u2 = new User("gdf1","123","applicant","123","1@1.1");
 		System.out.println("SAVE");
 		session.save((Object)u1);
-		session.save((Object)u2);
+		session.update(u1);
 		session.getTransaction().commit();
 		session.close();
 		
