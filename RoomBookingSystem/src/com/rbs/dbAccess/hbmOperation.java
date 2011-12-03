@@ -61,12 +61,21 @@ public class hbmOperation {
 		return this.FAIL;
 	}
 
-	public int query(Object o){
-		return this.FAIL;
+	public List<Object> query(Object o){
+		Session session = sessionFactory.openSession();
+		session.beginTransaction();
+		
+		session.getTransaction().commit();
+		session.close();
+		return null;
 	}
 	
-	public int query(String hql){
+	public List<Object> query(String hql){
+		Session session = sessionFactory.openSession();
+		session.beginTransaction();
 		
-		return this.SUCCESS;
+		session.getTransaction().commit();
+		session.close();
+		return null;
 	}
 }
