@@ -8,18 +8,21 @@ public class LoginUI {
 	public String testPassVal(String s){
 		return "success call: "+s;
 	}
-	public String login(String userId,String pwd) {
-        String res = "";
+	/**
+	 * @param userId
+	 * @param pwd
+	 * @return 1 for SUCCESS, 0 for FAIL cause password, -1 for FAIL cause no such User
+	 */
+	public int login(String userId,String pwd) {
         
         UserCtrl uc = new UserCtrl();
         User u = new User();
         try {
-            res = uc.login(userId, pwd);
-            if(res == null) return "用户名不存在";
+        	uc.login(u.getName(), u.getPassword());
         } catch(Exception e) {
             e.printStackTrace();
         }
                 
-        return pwd.equals(u.getPassword()) ? "登陆成功" : "密码错误";
+        return pwd.equals(u.getPassword()) ? 1 : 0;
     }
 }

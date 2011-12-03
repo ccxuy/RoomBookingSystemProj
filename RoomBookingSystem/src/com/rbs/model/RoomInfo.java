@@ -87,5 +87,24 @@ public class RoomInfo {
 	}
 
 	
+	public String toTimeString() {
+		return "RoomInfo [dateBegin=" + dateBegin + ", dateEnd=" + dateEnd
+				+ ", daysOfWeek=" + daysOfWeek + ", timeBegin=" + timeBegin
+				+ ", timeEnd=" + timeEnd + "]";
+	}
+
+	@Override
+	public RoomInfo clone() {
+		// TODO Auto-generated method stub
+		try {
+			return (RoomInfo)super.clone();
+		} catch (CloneNotSupportedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return null;
+	}
+
+	
 
 }

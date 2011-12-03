@@ -118,5 +118,23 @@ public class Application {
 	}
 
 	
+	public String toTimeString() {
+		return "Application [dateBegin=" + dateBegin + ", dateEnd=" + dateEnd
+				+ ", daysOfWeek=" + daysOfWeek + ", timeBegin=" + timeBegin
+				+ ", timeEnd=" + timeEnd + "]";
+	}
+
+	@Override
+	public Application clone() {
+		// TODO Auto-generated method stub
+		try {
+			return (Application) super.clone();
+		} catch (CloneNotSupportedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return null;
+	}
+
 
 }

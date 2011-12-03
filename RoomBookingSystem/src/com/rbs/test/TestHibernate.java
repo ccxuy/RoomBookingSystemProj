@@ -91,7 +91,7 @@ public class TestHibernate extends TestCase {
 		Calendar c  =  Calendar.getInstance();
 		Date d = c.getTime();
 		RoomInfo a = new RoomInfo();
-		a.setRoomInfoID("a");
+		a.setRoomInfoID("d");
 		a.setRoomID("C201");
 		a.setDateBegin(dateBegin);
 		a.setDateEnd(dateEnd);
