@@ -22,6 +22,11 @@
 <!-- jQuery Datepicker Plugin -->
 <script type="text/javascript" src="resources/scripts/jquery.datePicker.js"></script>
 <script type="text/javascript" src="resources/scripts/jquery.date.js"></script>
+<style type="text/css">
+.h3 {
+	color: #C0F;
+}
+</style>
 </head>
 <body>
 <div id="body-wrapper">
@@ -31,19 +36,23 @@
       <!-- Sidebar with logo and menu -->
       <h1 id="sidebar-title"><a href="#">UIC</a></h1>
       <!-- Logo (221px wide) -->
-      <a href="#"><img id="logo" src="resources/images/logo.png" alt="UIC room booking logo" /></a>
+      <a href="#"><img id="logo" src="resources/images/logo.png" alt="Simpla Admin logo" /></a>
       <!-- Sidebar Profile links -->
       <div id="profile-links"> Hello, <a href="#" title="Edit your profile">user</a>|
         <a href="login.html" title="Sign Out">Sign out</a> </div>
       <ul id="main-nav">
         <!-- Accordion Menu -->
-        <li> <a href="index.html" class="nav-top-item current">
+<li> <a href="index.html" class="nav-top-item no-submenu">
           <!-- Add the class "no-submenu" to menu items with no sub menu -->
           Portal </a> </li>
-        <li> <a href="query.html" class="nav-top-item no-submenu">
+<li> <a href="query.html" class="nav-top-item no-submenu">
+          <!-- Add the class "no-submenu" to menu items with no sub menu -->
           Query and Apply Room </a> </li>
         <li> <a href="myapplication.html" class="nav-top-item no-submenu">
+          <!-- Add the class "current" to current menu item -->
           My Applications </a>
+          <ul>
+          </ul>
         </li>
         <li> <a href="#" class="nav-top-item">Room Information Management</a>
           <ul>
@@ -52,8 +61,12 @@
           </ul>
         </li>
         <li> <a href="manageusers.html" class="nav-top-item no-submenu">User Management </a>
+          <ul>
+                
+          </ul>
         </li>
-        <li> <a href="viewratio.html" class="nav-top-item no-submenu"> View Use Ratio </a>
+        <li> <a href="viewratio.html" class="nav-top-item current"> View Use Ratio </a>
+         
         </li>
       </ul>
       <!-- End #main-nav -->
@@ -69,26 +82,69 @@
     </noscript>
     <!-- Page Head -->
     <h2>Welcome to Room Booking System</h2>
-    <p id="page-intro">What would you like to do?</p>
+   
     <ul class="shortcut-buttons-set">
-      <li><a class="shortcut-button" href="query.html"><span> <img src="resources/images/icons/pencil_48.png" alt="icon" /><br />
-        Query and Apply Room </span></a></li>
-      <li><a class="shortcut-button" href="myapplication.html"><span> <img src="resources/images/icons/paper_content_pencil_48.png" alt="icon" /><br />
-        My Applications </span></a></li>
-      <li><a class="shortcut-button" href="#"><span> <img src="resources/images/icons/image_add_48.png" alt="icon" /><br />
-        Upload Room Information </span></a></li>
-      <li><a class="shortcut-button" href="#"><span> <img src="resources/images/icons/clock_48.png" alt="icon" /><br />
-        Maintain Room Information </span></a></li>
-      <li><a class="shortcut-button" href="manageusers.html" ><span> <img src="resources/images/icons/comment_48.png" alt="icon" /><br />
-        Manage Users </span></a></li>
-        <li><a class="shortcut-button" href="viewratio.html" ><span> <img src="resources/images/icons/comment_48.png" alt="icon" /><br />
-        View Use Ratio </span></a></li>
+      
     </ul>
     <!-- End .shortcut-buttons-set -->
     <div class="clear"></div>
     <!-- End .clear -->
     <div class="content-box">
       <!-- Start Content Box -->
+
+      <div class="content-box-header">
+        <h3 class="h3"> My applications</h3>
+        <ul class="content-box-tabs">
+         
+          <!-- href must be unique and match the id of target div -->
+        </ul>
+        <div class="clear"></div>
+</div>
+      <!-- End .content-box-header -->
+      <div class="content-box-content">
+        <div class="tab-content default-tab" id="tab1">
+          <!-- This is the target div. id must match the href of this div's tab -->
+          
+          <table>
+            <thead>
+              <tr>
+                <th>Room No.</th>
+                <th>Ratio</th>
+                
+              </tr>
+            </thead>
+            <tfoot>
+              <tr>
+                <td colspan="6">
+                  <div class="bulk-actions align-left">
+                    <label>Room No</label>
+                    <input class="text-input" type="text" />
+                    <a class="button" href="#">Search</a> </div>
+                  <!-- End .pagination -->
+                  <div class="clear"></div>
+                </td>
+              </tr>
+            </tfoot>
+            <tbody>
+              <tr>
+                <td>B102</td>
+                <td>10 %</td>
+                
+              </tr>
+              <tr>
+                <td>C402</td>
+                <td>30 %</td>
+                
+              </tr>
+              <tr>
+                <td>E308A</td>
+                <td>50 %</td>
+               
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <!-- End #tab1 -->
       
   <!-- End #main-content -->
 </div>

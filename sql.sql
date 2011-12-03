@@ -48,8 +48,7 @@ ENGINE = InnoDB;
 -- -----------------------------------------------------
 CREATE  TABLE IF NOT EXISTS `rbsdb`.`Room` (
   `roomid` VARCHAR(60) NOT NULL ,
-  `roomnum` VARCHAR(45) NULL ,
-  `capacity` INT NOT NULL ,
+  `capacity` INT NULL ,
   `facilities` CHAR NULL ,
   PRIMARY KEY (`roomid`) )
 ENGINE = InnoDB;

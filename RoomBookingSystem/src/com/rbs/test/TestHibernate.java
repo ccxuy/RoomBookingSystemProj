@@ -30,11 +30,11 @@ public class TestHibernate extends TestCase {
 		// create a couple of events...
 		Session session = sessionFactory.openSession();
 		session.beginTransaction();
-		User u1 = new User("name","123","applicant","123","1@1.1");
-		User u2 = new User("name1","123","applicant","123","1@1.1");
+		User u1 = new User("xxxxxx","123","applicant","123","1@1.1");
+		User u2 = new User("gdf1","123","applicant","123","1@1.1");
 		System.out.println("SAVE");
-		session.save(u1);
-		session.save(u2);
+		session.save((Object)u1);
+		session.save((Object)u2);
 		session.getTransaction().commit();
 		session.close();
 		
