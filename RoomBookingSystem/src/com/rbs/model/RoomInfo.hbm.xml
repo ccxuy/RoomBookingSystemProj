@@ -1,26 +1,30 @@
 <?xml version="1.0"?>
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
                                    "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
-<!-- Generated 2011-11-25 20:49:56 by Hibernate Tools 3.4.0.CR1 -->
+<!-- Generated 2011-12-3 20:33:41 by Hibernate Tools 3.4.0.CR1 -->
 <hibernate-mapping>
- <joined-subclass extends="com.rbs.model.Room" lazy="false"
-  name="com.rbs.model.RoomInfo" table="ROOMINFO">
-  <key column="roomnum">
-   <column name="ROOMNUM"/>
-  </key>
-  <property generated="never" lazy="false" name="roomInfoID"
-   type="java.lang.String" unique="true">
+ <class name="com.rbs.model.RoomInfo" table="ROOMINFO">
+  <id name="roomInfoID" type="java.lang.String">
    <column name="ROOMINFOID"/>
+   <generator class="assigned"/>
+  </id>
+  <property generated="never" lazy="false" name="roomID" type="java.lang.String">
+   <column name="ROOMID"/>
   </property>
-  <list lazy="true" name="time" table="TIMEINTERVAL">
-   <key>
-    <column name="ROOMINFOID"/>
-   </key>
-   <list-index base="0"/>
-   <one-to-many class="com.rbs.model.TimeInterval"/>
-  </list>
-  <property generated="never" lazy="false" name="status" type="int">
-   <column name="STATUS"/>
+  <property generated="never" lazy="false" name="dateBegin" type="java.util.Date">
+   <column name="DATEBEGIN"/>
   </property>
- </joined-subclass>
+  <property generated="never" lazy="false" name="dateEnd" type="java.util.Date">
+   <column name="DATEEND"/>
+  </property>
+  <property generated="never" lazy="false" name="daysOfWeek" type="java.lang.String">
+   <column name="week"/>
+  </property>
+  <property generated="never" lazy="false" name="timeBegin" type="java.util.Date">
+   <column name="TIMEBEGIN"/>
+  </property>
+  <property generated="never" lazy="false" name="timeEnd" type="java.util.Date">
+   <column name="TIMEEND"/>
+  </property>
+ </class>
 </hibernate-mapping>

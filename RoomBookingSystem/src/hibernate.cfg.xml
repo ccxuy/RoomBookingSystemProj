@@ -14,5 +14,7 @@
   <property name="hibernate.format_sql">true</property>
   <mapping class="com.rbs.model.User" resource="com/rbs/model/User.hbm.xml"/>
   <mapping class="com.rbs.model.Application" resource="com/rbs/model/Application.hbm.xml"/>
+  <mapping class="com.rbs.model.RoomInfo" resource="com/rbs/model/RoomInfo.hbm.xml"/>
+  <mapping class="com.rbs.model.Room" resource="com/rbs/model/Room.hbm.xml"/>
  </session-factory>
 </hibernate-configuration>

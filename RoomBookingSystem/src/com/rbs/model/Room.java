@@ -1,7 +1,7 @@
 package com.rbs.model;
 public class Room {
 
-	private String roomNum;
+	private String roomID;
 	private int capacity;
 	private String facilities;
 	
@@ -9,19 +9,19 @@ public class Room {
 		super();
 	}
 
-	public Room(String roomNum, int capacity, String facilities) {
+	public Room(String roomID, int capacity, String facilities) {
 		super();
-		this.roomNum = roomNum;
+		this.roomID = roomID;
 		this.capacity = capacity;
 		this.facilities = facilities;
 	}
 
-	public String getRoomNum() {
-		return roomNum;
+	public String getRoomID() {
+		return roomID;
 	}
 
-	public void setRoomNum(String roomNum) {
-		this.roomNum = roomNum;
+	public void setRoomID(String roomID) {
+		this.roomID = roomID;
 	}
 
 	public int getCapacity() {
@@ -39,5 +39,7 @@ public class Room {
 	public void setFacilities(String facilities) {
 		this.facilities = facilities;
 	}
+
+	
 
 }

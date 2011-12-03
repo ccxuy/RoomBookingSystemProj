@@ -12,6 +12,7 @@ import org.hibernate.*;
 import org.hibernate.cfg.*;
 
 import com.rbs.model.Application;
+import com.rbs.model.RoomInfo;
 import com.rbs.model.User;
 
 public class TestHibernate extends TestCase {
@@ -54,7 +55,7 @@ public class TestHibernate extends TestCase {
         session.close();
 
 	}*/
-	public void testApplicationHbm() throws ParseException{
+	/*public void testApplicationHbm() throws ParseException{
 		Session session = sessionFactory.openSession();
 		session.beginTransaction();
 		java.text.SimpleDateFormat format = new java.text.SimpleDateFormat("yyyy-MM-dd");  
@@ -64,7 +65,7 @@ public class TestHibernate extends TestCase {
 		Calendar c  =  Calendar.getInstance();
 		Date d = c.getTime();
 		Application a = new Application();
-		a.setAppID("b");
+		a.setAppID("c");
 		a.setRoomID("C201");
 		a.setApplyerID("abc");
 		a.setApplyTime(dateBegin);
@@ -76,6 +77,30 @@ public class TestHibernate extends TestCase {
 		a.setStatus(0);
 		System.out.println("SAVE");
 		session.save(a);
+		//session.delete(a);
+		session.getTransaction().commit();
+		session.close();
+	}*/
+	public void testRoomInfoHbm() throws ParseException{
+		Session session = sessionFactory.openSession();
+		session.beginTransaction();
+		java.text.SimpleDateFormat format = new java.text.SimpleDateFormat("yyyy-MM-dd");  
+		java.util.Date dateBegin= format.parse("2007-12-24");   
+		java.util.Date dateEnd= format.parse("2007-12-25");
+		DateFormat df=new SimpleDateFormat("EE hh:mm:ss");
+		Calendar c  =  Calendar.getInstance();
+		Date d = c.getTime();
+		RoomInfo a = new RoomInfo();
+		a.setRoomInfoID("a");
+		a.setRoomID("C201");
+		a.setDateBegin(dateBegin);
+		a.setDateEnd(dateEnd);
+		a.setDaysOfWeek("123");
+		a.setTimeBegin(d);
+		a.setTimeEnd(d);
+		System.out.println("SAVE");
+		session.save(a);
+		//session.delete(a);
 		session.getTransaction().commit();
 		session.close();
 	}

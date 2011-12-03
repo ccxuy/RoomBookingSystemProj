@@ -1,11 +1,11 @@
 <?xml version="1.0"?>
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
-<!-- Generated 2011-11-25 20:49:56 by Hibernate Tools 3.4.0.CR1 -->
+<!-- Generated 2011-12-3 20:29:15 by Hibernate Tools 3.4.0.CR1 -->
 <hibernate-mapping>
     <class name="com.rbs.model.Room" table="ROOM">
-        <id name="roomNum" type="java.lang.String">
-            <column name="ROOMNUM" />
+        <id name="roomID" type="java.lang.String">
+            <column name="ROOMID" />
             <generator class="assigned" />
         </id>
         <property name="capacity" type="int">

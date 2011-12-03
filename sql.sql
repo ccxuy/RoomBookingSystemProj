@@ -24,7 +24,7 @@ ENGINE = InnoDB;
 -- -----------------------------------------------------
 CREATE  TABLE IF NOT EXISTS `rbsdb`.`Application` (
   `appid` VARCHAR(60) NOT NULL ,
-  `roomnum` VARCHAR(45) NOT NULL ,
+  `roomid` VARCHAR(45) NOT NULL ,
   `datebegin` DATE NOT NULL ,
   `dateend` DATE NOT NULL ,
   `week` VARCHAR(10) NOT NULL ,
@@ -49,7 +49,7 @@ ENGINE = InnoDB;
 CREATE  TABLE IF NOT EXISTS `rbsdb`.`Room` (
   `roomid` VARCHAR(60) NOT NULL ,
   `capacity` INT NULL ,
-  `facilities` CHAR NULL ,
+  `facilities` VARCHAR(100) NULL ,
   PRIMARY KEY (`roomid`) )
 ENGINE = InnoDB;
 

@@ -4,13 +4,13 @@ import java.util.Date;
 import java.util.List;
 import java.util.UUID;
 
-public class RoomInfo extends Room {
+public class RoomInfo {
 
 	private String roomInfoID;
 	private String roomID;
 	private Date dateBegin;
 	private Date dateEnd;
-	private int daysOfWeek;
+	private String daysOfWeek;
 	private Date timeBegin;
 	private Date timeEnd;
 
@@ -19,7 +19,7 @@ public class RoomInfo extends Room {
 	}
 
 	public RoomInfo(String roomID, Date dateBegin, Date dateEnd,
-			int daysOfWeek, Date timeBegin, Date timeEnd) {
+			String daysOfWeek, Date timeBegin, Date timeEnd) {
 		super();
 		this.roomInfoID = UUID.randomUUID().toString();
 		this.roomID = roomID;
@@ -62,11 +62,11 @@ public class RoomInfo extends Room {
 		this.dateEnd = dateEnd;
 	}
 
-	public int getDaysOfWeek() {
+	public String getDaysOfWeek() {
 		return daysOfWeek;
 	}
 
-	public void setDaysOfWeek(int daysOfWeek) {
+	public void setDaysOfWeek(String daysOfWeek) {
 		this.daysOfWeek = daysOfWeek;
 	}
 
