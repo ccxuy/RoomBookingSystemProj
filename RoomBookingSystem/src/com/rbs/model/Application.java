@@ -1,74 +1,122 @@
 package com.rbs.model;
 
+import java.util.Date;
 import java.util.UUID;
 
 public class Application {
 
-	private String aid;
-	private int roomID;
-	private int roomNum;
-	private String appName;
-	private TimeInterval time;
+	private String appID;
+	private String roomID;
+	private Date dateBegin;
+	private Date dateEnd;
+	private String daysOfWeek;
+	private Date timeBegin;
+	private Date timeEnd;
+	private String applyerID;
+	private int status;
+	private Date applyTime;
 
 	public Application() {
 		super();
 	}
 
-	public Application(int roomID, int roomNum, String appName,
-			TimeInterval time) {
+	public Application(String roomID, Date dateBegin, Date dateEnd,
+			String daysOfWeek, Date timeBegin, Date timeEnd, String applyerID,
+			int status, Date applyTime) {
 		super();
+		this.applyerID = UUID.randomUUID().toString();
 		this.roomID = roomID;
-		this.roomNum = roomNum;
-		this.appName = appName;
-		this.time = time;
+		this.dateBegin = dateBegin;
+		this.dateEnd = dateEnd;
+		this.daysOfWeek = daysOfWeek;
+		this.timeBegin = timeBegin;
+		this.timeEnd = timeEnd;
+		this.applyerID = applyerID;
+		this.status = status;
+		this.applyTime = applyTime;
 	}
 
-	public String getAid() {
-		return aid;
+	public String getAppID() {
+		return appID;
 	}
 
-	public void setAid() {
-		this.aid = UUID.randomUUID().toString();
+	public void setAppID(String appID) {
+		this.appID = appID;
 	}
 
-	public int getRoomID() {
+	public String getRoomID() {
 		return roomID;
 	}
 
-	public void setRoomID(int roomID) {
+	public void setRoomID(String roomID) {
 		this.roomID = roomID;
 	}
 
-	public int getRoomNum() {
-		return roomNum;
+	public Date getDateBegin() {
+		return dateBegin;
 	}
 
-	public void setRoomNum(int roomNum) {
-		this.roomNum = roomNum;
+	public void setDateBegin(Date dateBegin) {
+		this.dateBegin = dateBegin;
 	}
 
-	public String getAppName() {
-		return appName;
+	public Date getDateEnd() {
+		return dateEnd;
 	}
 
-	public void setAppName(String appName) {
-		this.appName = appName;
+	public void setDateEnd(Date dateEnd) {
+		this.dateEnd = dateEnd;
 	}
 
-	public TimeInterval getTime() {
-		return time;
+	public String getDaysOfWeek() {
+		return daysOfWeek;
 	}
 
-	public void setTime(TimeInterval time) {
-		this.time = time;
+	public void setDaysOfWeek(String daysOfWeek) {
+		this.daysOfWeek = daysOfWeek;
 	}
 
-	/**
-	 * 
-	 * @return
-	 */
-	public int checkState() {
-		throw new UnsupportedOperationException();
+	public Date getTimeBegin() {
+		return timeBegin;
 	}
+
+	public void setTimeBegin(Date timeBegin) {
+		this.timeBegin = timeBegin;
+	}
+
+	public Date getTimeEnd() {
+		return timeEnd;
+	}
+
+	public void setTimeEnd(Date timeEnd) {
+		this.timeEnd = timeEnd;
+	}
+
+	public String getApplyerID() {
+		return applyerID;
+	}
+
+	public void setApplyerID(String applyerID) {
+		this.applyerID = applyerID;
+	}
+
+	public int getStatus() {
+		return status;
+	}
+
+	//tbd
+	public void setStatus(int status) {
+		this.status = status;
+	}
+
+	public Date getApplyTime() {
+		return applyTime;
+	}
+
+	public void setApplyTime(Date applyTime) {
+		this.applyTime = applyTime;
+	}
+
+	
 
 }

@@ -1,5 +1,9 @@
 package com.rbs.test;
 
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
@@ -7,6 +11,7 @@ import junit.framework.TestCase;
 import org.hibernate.*;
 import org.hibernate.cfg.*;
 
+import com.rbs.model.Application;
 import com.rbs.model.User;
 
 public class TestHibernate extends TestCase {
@@ -26,7 +31,7 @@ public class TestHibernate extends TestCase {
 			sessionFactory.close();
 		}
 	}
-	public void testBasicUsage() {
+	/*public void testBasicUsage() {
 		// create a couple of events...
 		Session session = sessionFactory.openSession();
 		session.beginTransaction();
@@ -48,5 +53,30 @@ public class TestHibernate extends TestCase {
         session.getTransaction().commit();
         session.close();
 
+	}*/
+	public void testApplicationHbm() throws ParseException{
+		Session session = sessionFactory.openSession();
+		session.beginTransaction();
+		java.text.SimpleDateFormat format = new java.text.SimpleDateFormat("yyyy-MM-dd");  
+		java.util.Date dateBegin= format.parse("2007-12-24");   
+		java.util.Date dateEnd= format.parse("2007-12-25");
+		DateFormat df=new SimpleDateFormat("EE hh:mm:ss");
+		Calendar c  =  Calendar.getInstance();
+		Date d = c.getTime();
+		Application a = new Application();
+		a.setAppID("b");
+		a.setRoomID("C201");
+		a.setApplyerID("abc");
+		a.setApplyTime(dateBegin);
+		a.setDateBegin(dateBegin);
+		a.setDateEnd(dateEnd);
+		a.setDaysOfWeek("1");
+		a.setTimeBegin(d);
+		a.setTimeEnd(d);
+		a.setStatus(0);
+		System.out.println("SAVE");
+		session.save(a);
+		session.getTransaction().commit();
+		session.close();
 	}
 }

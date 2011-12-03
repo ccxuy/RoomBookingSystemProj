@@ -1,28 +1,39 @@
 <?xml version="1.0"?>
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
                                    "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
-<!-- Generated 2011-11-25 20:37:54 by Hibernate Tools 3.4.0.CR1 -->
-<hibernate-mapping package="com.rbs.model">
+<!-- Generated 2011-12-3 20:07:28 by Hibernate Tools 3.4.0.CR1 -->
+<hibernate-mapping>
  <class name="com.rbs.model.Application" table="APPLICATION">
-  <id access="field" name="aid" type="java.lang.String">
-   <column name="AID"/>
+  <id name="appID" type="java.lang.String">
+   <column name="APPID"/>
    <generator class="assigned"/>
   </id>
-  <property access="field" column="roomID" generated="never"
-   lazy="false" name="roomID" type="int">
+  <property generated="never" lazy="false" name="roomID" type="java.lang.String">
    <column name="ROOMID"/>
   </property>
-  <property access="field" column="roomNum" generated="never"
-   lazy="false" name="roomNum" type="int">
-   <column name="ROOMNUM"/>
+  <property generated="never" lazy="false" name="dateBegin" type="java.util.Date">
+   <column name="DATEBEGIN"/>
   </property>
-  <property access="field" column="appName" generated="never"
-   lazy="false" name="appName" type="java.lang.String">
-   <column name="APPNAME"/>
+  <property generated="never" lazy="false" name="dateEnd" type="java.util.Date">
+   <column name="DATEEND"/>
   </property>
-  <many-to-one access="field" class="com.rbs.model.TimeInterval"
-   fetch="join" name="time">
-   <column name="TIME"/>
-  </many-to-one>
+  <property generated="never" lazy="false" name="daysOfWeek" type="java.lang.String">
+   <column name="week"/>
+  </property>
+  <property generated="never" lazy="false" name="timeBegin" type="java.util.Date">
+   <column name="TIMEBEGIN"/>
+  </property>
+  <property generated="never" lazy="false" name="timeEnd" type="java.util.Date">
+   <column name="TIMEEND"/>
+  </property>
+  <property generated="never" lazy="false" name="applyerID" type="java.lang.String">
+   <column name="uid"/>
+  </property>
+  <property generated="never" lazy="false" name="status" type="int">
+   <column name="STATUS"/>
+  </property>
+  <property generated="never" lazy="false" name="applyTime" type="java.util.Date">
+   <column name="APPLYTIME"/>
+  </property>
  </class>
 </hibernate-mapping>
