@@ -4,6 +4,9 @@ import java.util.Calendar;
 import java.util.LinkedList;
 import java.util.List;
 
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+
 import com.rbs.model.Application;
 import com.rbs.model.RoomInfo;
 
@@ -12,14 +15,17 @@ import com.rbs.model.RoomInfo;
  *
  */
 public class ApplicationCtrl {
-
+	private SessionFactory sessionFactory;
 	/**
 	 * 
 	 * @param aid
 	 * @return 
 	 */
 	public List<Application> checkHistoryOfApp(String aid) {
-		throw new UnsupportedOperationException();
+		Session session = sessionFactory.openSession();
+		session.beginTransaction();
+		String hql = "select A from Application A where A.appID='"+roomNum+"'";
+		List result = session.createQuery(hql).list();
 	}
 
 	/**
@@ -82,8 +88,8 @@ public class ApplicationCtrl {
 		//Application
 		System.out.println(app.toTimeString());
 		System.out.println("dateEnd.after(dateBegin):");
-		if(appEnd.after(appBegin)){
-			System.out.println("after");
+		if(appEnd.compareTo(appBegin)>=0){
+			System.out.println("->after");
 		}else{
 			System.err.println(" NOT after");
 			flag = -1;
@@ -91,7 +97,7 @@ public class ApplicationCtrl {
 		//RoomInfo
 		System.out.println(ri.toTimeString());
 		System.out.println("dateEnd.after(dateBegin):");
-		if(riEnd.after(riBegin)){
+		if(riEnd.compareTo(riBegin)>=0){
 			System.out.println("after");
 		}else{
 			System.err.println(" NOT after");
@@ -99,8 +105,8 @@ public class ApplicationCtrl {
 		}
 		
 		//ÅÐ¶ÏdateÇø¼ä
-		if(appBegin.after(riBegin)
-				&&appEnd.before(riEnd)){
+		if(appBegin.compareTo(riBegin)>=0
+				&&appEnd.compareTo(riEnd)<=0){
 			System.out.println("applicion's date is in room info's date");
 		}else{
 			System.err.println("applicion's date is NOT in room info's date");
@@ -109,8 +115,8 @@ public class ApplicationCtrl {
 		//ÅÐ¶ÏÐÇÆÚ
 		String appWeek = app.getDaysOfWeek();
 		String riWeek = ri.getDaysOfWeek();
-		int weekInerval = Math.max(appWeek.length(), riWeek.length());//·ÀÖ¹Òç³ö
-		for(int i=0;i<=weekInerval&&i<=7;i++){
+		int weekInerval = Math.min(appWeek.length(), riWeek.length());//·ÀÖ¹Òç³ö
+		for(int i=0;i<weekInerval&&i<7;i++){
 			if(appWeek.charAt(i)=='1'){
 				if(riWeek.charAt(i)!='1'){
 					System.out.println("applicaion week not compatibale in week(index+1) "+i+1);
@@ -124,8 +130,8 @@ public class ApplicationCtrl {
 		riBegin.setTime(ri.getTimeBegin());
 		riEnd.setTime(ri.getTimeEnd());
 		
-		if(appBegin.after(riBegin)
-				&&appEnd.before(riEnd)){
+		if(appBegin.compareTo(riBegin)>=0
+				&&appEnd.compareTo(riEnd)<=0){
 			System.out.println("applicion's date is in room info's date");
 		}else{
 			System.err.println("applicion's date is NOT in room info's date");
@@ -145,6 +151,7 @@ public class ApplicationCtrl {
 		List<RoomInfo> res = new LinkedList<RoomInfo>();
 		//check err
 		if(isAvailable(app, ri)!=1){
+			System.err.println("NOT VALID INPUT");
 			return null;
 		}
 		
@@ -191,6 +198,11 @@ public class ApplicationCtrl {
 			RoomInfo riC = riB.clone();
 			riC.setTimeBegin(app.getTimeEnd());
 			res.add(riC);
+		}
+		
+		System.out.println("=========="+res.size());
+		for(RoomInfo rio:res){
+			System.out.println(rio.toTimeString());
 		}
 		return res;
 	}
