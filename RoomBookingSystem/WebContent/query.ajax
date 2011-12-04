@@ -1,5 +1,4 @@
-
-    <!-- Main Content Section with everything -->
+<!-- Main Content Section with everything -->
     <noscript>
     <!-- Show a notification if the user has disabled javascript -->
     <div class="notification error png_bg">
@@ -22,7 +21,7 @@
           <!-- href must be unique and match the id of target div -->
         </ul>
         <div class="clear"></div>
-	  </div>
+      </div>
       <!-- End .content-box-header -->
       <div class="content-box-content">
         <div class="tab-content default-tab" id="tab1">
@@ -36,8 +35,10 @@
                 <th>Room No.</th>
                 <th>Capacities</th>
                 <th>Facilities</th>
-                <th>From</th>
-                <th>To</th>
+                <th>Date Begin</th>
+                <th>Date End</th>
+                <th>Time Begin</th>
+                <th>Time End</th>
                 <th>Apply</th>
               </tr>
             </thead>
@@ -45,13 +46,7 @@
               <tr>
                 <td colspan="6">
                   <div class="bulk-actions align-left">
-                   <label>Facilities</label>
-                    <select name="dropdown">
-                      <option value="option1">Computers</option>
-                      <option value="option2">Projector</option>
-                      <option value="option3">Microphone</option>
-                    </select>
-                    <label>Capacitise</label>
+                    <label>Room Number</label>
                     <input class="text-input" type="text" />
                 
                     <a class="button" href="#">Search</a> </div>
@@ -65,38 +60,53 @@
                 <td>B102</td>
                 <td>60</td>
                 <td>Projector</td>
-                <td>6:00 am</td>
-                <td>10:00 pm</td>
+                <td>2011-12-01</td>
+                <td>2011-12-25</td>
+                <td>08:00 </td>
+                <td>18:00 </td>
                 <td>
                   <!-- Icons -->
-                  <a href="apply.jsp" title="Edit"><img src="resources/images/icons/pencil.png" alt="Edit" /></a>
+                  <a href="apply.jsp" title="Apply"><img src="resources/images/icons/pencil.png" alt="Apply" /></a>
                  </td>
               </tr>
               <tr>
                 <td>C402</td>
                 <td>30</td>
                 <td>Computers</td>
-                <td>8:00 am</td>
-                <td>4:00 pm</td>
+                <td>2011-12-01</td>
+                <td>2011-12-25</td>
+                <td>08:00</td>
+                <td>16:00</td>
                 <td>
                   <!-- Icons -->
-                 <a href="apply.jsp" title="Edit"><img src="resources/images/icons/pencil.png" alt="Edit" /></a>
-                </td>
-              </tr>
-              <tr>
-                <td>E308A</td>
-                <td>40</td>
-                <td>Microphone</td>
-                <td>7:00 am</td>
-                <td>5:00 pm</td>
-                <td>
-                  <!-- Icons -->
-                 <a href="apply.jsp" title="Edit"><img src="resources/images/icons/pencil.png" alt="Edit" /></a>
+                 <a href="apply.jsp" title="Apply"><img src="resources/images/icons/pencil.png" alt="Apply" /></a>
                 </td>
               </tr>
             </tbody>
           </table>
         </div>
         <!-- End #tab1 -->
-      </div>
+      
   <!-- End #main-content -->
+     </div>
+	 </div>
+	</div>
+	
+
+<div id="dialog-form" title="Apply Infomation">
+	<p class="validateTips">All form fields are required.</p>
+	<form>
+	<fieldset>
+		<label for="name">Room ID</label>
+		<input type="text" name="roomid" id="roomID" class="text ui-widget-content ui-corner-all" />
+		<label for="name">Begin Date</label>
+		<input type="text" name="roomID" id="dateBegin" class="text ui-widget-content ui-corner-all" />
+		<label for="name">End Date</label>
+		<input type="text" name="roomID" id="dateEnd" class="text ui-widget-content ui-corner-all" />
+		<label for="name">Begin Time</label>
+		<input type="text" name="roomID" id="timeBegin" class="text ui-widget-content ui-corner-all" />
+		<label for="name">End Time</label>
+		<input type="text" name="roomID" id="timeEnd" class="text ui-widget-content ui-corner-all" />
+	</fieldset>
+	</form>
+</div>

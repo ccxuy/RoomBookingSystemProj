@@ -37,6 +37,10 @@ public class RoomInfo {
 	public void setRoomInfoID(String roomInfoID) {
 		this.roomInfoID = roomInfoID;
 	}
+	
+	public void setRoomInfoID() {
+		this.roomInfoID = UUID.randomUUID().toString();
+	}
 
 	public String getRoomID() {
 		return roomID;

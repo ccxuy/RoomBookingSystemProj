@@ -10,6 +10,8 @@
 <link rel="stylesheet" href="resources/css/style.css" type="text/css" media="screen" />
 <!-- Invalid Stylesheet. This makes stuff look pretty. Remove it if you want the CSS completely valid -->
 <link rel="stylesheet" href="resources/css/invalid.css" type="text/css" media="screen" />
+<!-- JQuery UI CSS   -->
+<link rel="stylesheet" href="resources/css/jquery-ui-1.8.12.custom.css" type="text/css" />
 <!--                       Javascripts                       -->
 <!-- jQuery -->
 <script type="text/javascript" src="resources/scripts/jquery-1.3.2.min.js"></script>
@@ -24,6 +26,8 @@
 <script type="text/javascript" src="resources/scripts/jquery.date.js"></script>
 <!-- jQuery Cookies Plugin -->
 <script type="text/javascript" src="resources/scripts/jquery.cookie.js"></script>
+<!-- jQuery UI Plugin -->
+<script type="text/javascript" src="resources/scripts/jquery-ui-1.8.12.custom.min.js"></script>
 <!-- DWR -->
 <script type='text/javascript' src='/se/dwr/engine.js'></script>
 <script type='text/javascript' src='/se/dwr/interface/uiaccess.js'></script>
@@ -35,10 +39,28 @@
 		uiaccess.query(callbackQueryTable);
 	}
 	function callbackQueryTable(request){
+                
 		for(var i=0;i<request.length;i++){
-               alert(request[i].roomID);
-               alert(request[i].dateBegin);
+			$("tbody").append("<tr>");
+			$("tbody").append("<td>"+request[i].roomID+"</td>");
+			$("tbody").append("<td>Capacities</td>");
+			$("tbody").append("<td>Facilities</td>");
+			
+			$("tbody").append("<td>"+request[i].dateBegin.toLocaleDateString()+"</td>");
+			$("tbody").append("<td>"+request[i].dateEnd.toLocaleDateString()+"</td>");
+			$("tbody").append("<td>"+request[i].timeBegin.toLocaleTimeString()+"</td>");
+			$("tbody").append("<td>"+request[i].timeEnd.toLocaleTimeString()+"</td>");
+			$("tbody").append("<td><button class=\"create-apply\"> <img src=\"resources/images/icons/pencil.png\" />Create Apply</button></td>");
+			$("tbody").append("</tr>");
 		}
+		$( ".create-apply" )
+			.button()
+			.click(function() {
+				$( "#dialog-form" ).dialog( "open" );
+		});
+	}
+	function loadApplyDialog(){
+		$("#apply-dialog").dialog("open");
 	}
 	function callbackLogin(loginRequest){
 		if(loginRequest==1){
@@ -72,6 +94,34 @@
 		$("#main-content").html("");
 		$("#main-content").html(htmlobj.responseText);
 		$(loadQueryTable);
+		$( "#dialog:ui-dialog" ).dialog( "destroy" );
+		$( "#dialog-form" ).dialog({
+			autoOpen: false,
+			height: 450,
+			width: 400,
+			modal: true,
+			buttons: {
+				"Apply": function() {
+					var bValid = true;
+					allFields.removeClass( "ui-state-error" );
+
+					bValid = bValid && checkLength( roomid, "roomID", 1, 16 );
+
+					bValid = bValid && checkRegexp( name, /^([0-9a-z_])+$/i, "Room ID may consist of a-z, 0-9, underscores" );
+
+					if ( bValid ) {
+						//send to server
+						$( this ).dialog( "close" );
+					}
+				},
+				Cancel: function() {
+					$( this ).dialog( "close" );
+				}
+			},
+			close: function() {
+				allFields.val( "" ).removeClass( "ui-state-error" );
+			}
+		});
 	}
 	function loadApp(){
 		$("a").removeClass("current");
