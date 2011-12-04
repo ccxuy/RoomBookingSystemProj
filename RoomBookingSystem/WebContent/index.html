@@ -35,7 +35,10 @@
 		uiaccess.query(callbackQueryTable);
 	}
 	function callbackQueryTable(request){
-		alert(request);
+		for(var i=0;i<request.length;i++){
+               alert(request[i].roomID);
+               alert(request[i].dateBegin);
+		}
 	}
 	function callbackLogin(loginRequest){
 		if(loginRequest==1){
