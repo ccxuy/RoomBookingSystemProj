@@ -26,16 +26,69 @@ public class ApplicationCtrl {
 		session.beginTransaction();
 		String hql = "select A from Application A where A.appID='"+aid+"'";
 		List result = session.createQuery(hql).list();
+		session.getTransaction().commit();
+		session.close();
 		return result;
 	}
 
 	/**
 	 * 
 	 * @param app
-	 * @return 
+	 * @return 1-> apply successfully
 	 */
 	public int applyRoom(Application app) {
-		throw new UnsupportedOperationException();
+		Session session = sessionFactory.openSession();
+		session.beginTransaction();
+		String rid=app.getRoomID();
+		String hql="select RI.* from RoomInfo RI where RI.roomID='"+rid+"'";
+		List result = session.createQuery(hql).list();
+		for ( RoomInfo ri : (List<RoomInfo>) result ) {
+			if(isAvailable(app, ri)==1){
+				session.save(app);
+				session.getTransaction().commit();
+				session.close();
+				return 1;
+			}
+		}
+		return 0;
+	}
+
+	/**
+	 * 
+	 * @param roomInfoID
+	 * @return 1-> accept successfully
+	 */
+	public int acceptApp(Application app) {
+		Session session = sessionFactory.openSession();
+		session.beginTransaction();
+		app.setStatus(1); // 1->accept
+		session.update(app);
+		session.getTransaction().commit();
+		session.close();
+		
+		session = sessionFactory.openSession();
+		session.beginTransaction();
+		String rid=app.getRoomID();
+		String hql="select RI.* from RoomInfo RI where RI.roomID='"+rid+"'"; // find the RoomInfo according to App
+		List result = session.createQuery(hql).list();
+		if(result.size()==0){
+			System.out.println("No relevant RoomInfo");
+			return 0;
+		}
+		for ( RoomInfo ri : (List<RoomInfo>) result ) {
+			if(isAvailable(app, ri)==1){       // find the RoomInfo which needs to be splited
+				List <RoomInfo>resultOfSplit=splitApplicationTimeFromRoomInfo(app,ri);
+				for (RoomInfo split : (List<RoomInfo>) resultOfSplit){     //save each splits
+					session = sessionFactory.openSession();
+					session.beginTransaction();
+					session.save(split);
+					session.getTransaction().commit();
+					session.close();	
+					return 1; 
+				}
+			}
+		}
+		return 0;
 	}
 
 	/**
@@ -43,27 +96,14 @@ public class ApplicationCtrl {
 	 * @param roomInfoID
 	 * @return 
 	 */
-	public int acceptApp(String roomInfoID) {
-		throw new UnsupportedOperationException();
+	public int rejectApp(Application app) {
+		Session session = sessionFactory.openSession();
+		session.beginTransaction();
+		app.setStatus(2); // 2-> reject
+		session.update(app);
+		return 1;
 	}
 
-	/**
-	 * 
-	 * @param roomInfoID
-	 * @return 
-	 */
-	public int rejectApp(String roomInfoID) {
-		throw new UnsupportedOperationException();
-	}
-
-	/**
-	 * 
-	 * @return 
-	 */
-	public List<Application> queryApplication() {
-		throw new UnsupportedOperationException();
-	}
-	
 	/**
 	 * 判断application所占用的时间十分在roominfo所提供的时间里面
 	 * @param app
