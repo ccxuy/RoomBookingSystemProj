@@ -638,7 +638,7 @@ body#login {
 				}
 				
 #login-wrapper #login-content p .button {
-				width: auto;
+				width: 50px;
 				margin-top: 20px;
 				}
 
