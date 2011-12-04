@@ -7,12 +7,21 @@ import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
+import org.hibernate.cfg.Configuration;
 
 import com.rbs.model.RoomInfo;
 import com.rbs.model.User;
 
 public class RoomInfoCtrl {
 	private SessionFactory sessionFactory;
+	
+	public RoomInfoCtrl() {
+		super();
+		sessionFactory = new Configuration()
+        .configure() // configures settings from hibernate.cfg.xml
+        .buildSessionFactory();
+	}
+
 	/**
 	 * 
 	 * @param roomNum
@@ -33,7 +42,23 @@ public class RoomInfoCtrl {
 		return result;
 	}
 
-	
+	/**
+	 * @return all room information
+	 */
+	public List<RoomInfo> queryRoom() {
+		Session session = sessionFactory.openSession();
+		session.beginTransaction();
+		String hql = "from RoomInfo";
+		List result = session.createQuery(hql).list();
+		/*
+		for ( RoomInfo u : (List<RoomInfo>) result ) {
+			System.out.println( "Roominfo (" + u.getDateBegin() + ") : " + u.getDateEnd() );
+		}
+		*/
+		session.getTransaction().commit();
+		session.close();
+		return result;
+	}
 
 	/**
 	 * 
@@ -58,5 +83,9 @@ public class RoomInfoCtrl {
 	public String viewRatio(String roomNumber) {
 		throw new UnsupportedOperationException();
 	}
+
+
+
+	
 
 }

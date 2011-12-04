@@ -23,12 +23,12 @@
 <script type="text/javascript" src="resources/scripts/jquery.cookie.js"></script>
 <!-- DWR -->
 <script type='text/javascript' src='/se/dwr/engine.js'></script>
-<script type='text/javascript' src='/se/dwr/interface/LoginUI.js'></script>
+<script type='text/javascript' src='/se/dwr/interface/uiaccess.js'></script>
 <script type='text/javascript' src='/se/dwr/util.js'></script>
 <script type="text/javascript">
 
-	//$(document).bind('keydown', 'return', function(){$("#submit-button").trigger('click');});
 	$(document).ready(function(){
+			//$(document).bind('keydown', 'return', function(){$("#submit-button").trigger('click');});
 			$("#submit-button").click(function () {
             var wrongTypeName = 0,
             wrongTypePwd = 0,
@@ -64,7 +64,7 @@
                 $("#login-content").attr('disabled', true);
                 var $params = "username=" + uname + "&password=" + pwd ;
                 //alert($params);
-				LoginUI.login(uname,pwd,callbackLogin);
+				uiaccess.login(uname,pwd,callbackLogin);
             }
         });
 		

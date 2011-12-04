@@ -77,6 +77,10 @@ public class UserCtrl extends RoomInfoCtrl {
 	public int register(User newUser) {
 		Session session = sessionFactory.openSession();
 		Transaction tran=session.beginTransaction();
+		if(newUser.getUid()==null){
+			System.err.println("Auto generate UID");
+			newUser.setUid();
+		}
 		String hql = "select u.* from User u where u.name='"+newUser.getName()+"'";
 		Query query=session.createSQLQuery(hql);
 		List<User> list=query.list();

@@ -26,11 +26,17 @@
 <script type="text/javascript" src="resources/scripts/jquery.cookie.js"></script>
 <!-- DWR -->
 <script type='text/javascript' src='/se/dwr/engine.js'></script>
-<script type='text/javascript' src='/se/dwr/interface/LoginUI.js'></script>
+<script type='text/javascript' src='/se/dwr/interface/uiaccess.js'></script>
 <script type='text/javascript' src='/se/dwr/util.js'></script>
 <script type="text/javascript">
 	$(checkLogin);
-	$(loadPortal);
+	function loadQueryTable(){
+		$("tbody").html("");
+		uiaccess.query(callbackQueryTable);
+	}
+	function callbackQueryTable(request){
+		alert(request);
+	}
 	function callbackLogin(loginRequest){
 		if(loginRequest==1){
 		}else{
@@ -42,7 +48,7 @@
 			passwd = $.cookie("passwd");
 		$("#username").text(uname);
 		loadPortal();
-		LoginUI.login(uname,pwd,callbackLogin);
+		uiaccess.login(uname,pwd,callbackLogin);
 	}
 	function logout(){
 		$.cookie("uname",null);
@@ -62,6 +68,7 @@
 		htmlobj=$.ajax({url:"/se/query.ajax",async:false});
 		$("#main-content").html("");
 		$("#main-content").html(htmlobj.responseText);
+		$(loadQueryTable);
 	}
 	function loadApp(){
 		$("a").removeClass("current");

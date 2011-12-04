@@ -5,9 +5,8 @@
 
 <dwr>
 	<allow>
-		<create creator="new" javascript="LoginUI">
-			<param name="class" value="com.rbs.uiAccess.LoginUI" />
-			<include method="login"/>
+		<create creator="new" javascript="uiaccess">
+			<param name="class" value="com.rbs.uiAccess.UIAccess" />
 		</create>
 		<create creator="new" javascript="JDate">
 			<param name="class" value="java.util.Date" />

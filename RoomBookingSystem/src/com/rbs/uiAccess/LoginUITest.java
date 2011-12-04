@@ -14,11 +14,11 @@ import org.junit.Test;
 public class LoginUITest {
 
 	/**
-	 * Test method for {@link com.rbs.uiAccess.LoginUI#login(java.lang.String, java.lang.String)}.
+	 * Test method for {@link com.rbs.uiAccess.UIAccess#login(java.lang.String, java.lang.String)}.
 	 */
 	@Test
 	public void testLogin() {
-		LoginUI lui = new LoginUI();
+		UIAccess lui = new UIAccess();
 		int res = lui.login("123", "app");
 		System.out.println(res);
 	}

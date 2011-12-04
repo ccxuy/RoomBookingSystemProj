@@ -19,37 +19,81 @@
 <script type="text/javascript" src="resources/scripts/facebox.js"></script>
 <!-- jQuery WYSIWYG Plugin -->
 <script type="text/javascript" src="resources/scripts/jquery.wysiwyg.js"></script>
+<!-- DWR -->
+<script type='text/javascript' src='/se/dwr/engine.js'></script>
+<script type='text/javascript' src='/se/dwr/interface/uiaccess.js'></script>
+<script type='text/javascript' src='/se/dwr/util.js'></script>
+<script type="text/javascript">
+	$(document).ready(function(){
+		$("#register-submmit-button").click(function () {
+			var uname = $("#uname").val(),
+				passwd = $("#passwd").val(),
+				repasswd = $("#repasswd").val(),
+				role = $("#role").val(),
+				email = $("#email").val(),
+				phone = $("#phone").val();
+			
+			//alert(role);
+			uiaccess.register(uname,passwd,role,email,phone,callbackRegister);
+		});
+	});
+	function callbackRegister(request){
+		if(request==1){
+			alert("Register success");
+			location.href="/se/waiting.html";
+		}else{
+			alert("Register fail");
+		}
+	}
+</script>
 </head>
 <body id="login">
 <div id="login-wrapper" class="png_bg">
   <div id="login-top">
-    <h1>Simpla Admin</h1>
+    
     <!-- Logo (221px width) -->
     <img src="resources/images/logo.png" alt="Simpla Admin logo" width="230" height="83" id="logo" /> </div>
   <!-- End #logn-top -->
   <div id="login-content">
-    <form action="index.html">
+    <form action="waiting.html">
      
       <p>
         <label>Username</label>
-        <input class="text-input" type="text" />
+        <input id="uname" class="text-input" type="text" />
       </p>
       <div class="clear"></div>
       <p>
         <label>Password</label>
-        <input class="text-input" type="password" />
+        <input id="passwd" class="text-input" type="password" name="password" />
       </p>
       <div class="clear"></div>
+      <p>
         <label>Re-type Password</label>
-        <input class="text-input" type="password" />
+        <input id="repasswd" class="text-input" type="password" name="retype_password"/>
+       </p>
       <div class="clear"></div>
+      <p>
+      	<label>Applied Role</label>
+             <select id="role" name="dropdown" style="width: 210px;
+						 height:28px;
+						float: right;
+						margin: 0 0 20px 0;
+						border: 0;
+						background: white;">
+               <option value="Applicant">Applicant</option>
+               <option value="Manager">Manager</option>
+              </select>
+      </p>
+      <div class="clear"></div>
+      <p>
       	<label>Email</label>
-        <input class="text-input" type="email" />
+        <input id="email" class="text-input" type="email" name="email"/>
+      </p>
       <div class="clear"></div>
       	<label>Phone</label>
-        <input class="text-input" type="phone" />
+        <input id="phone" class="text-input" type="phone" name="phone"/>
       <p>
-        <input class="button" type="submit" value="Create My Account" />
+        <input id="register-submmit-button" onclick="submmitRegister()" class="button" value="Create My Account" />
       </p>
     </form>
   </div>

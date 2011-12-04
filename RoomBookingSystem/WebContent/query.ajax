@@ -1,4 +1,5 @@
 
+</script>
     <!-- Main Content Section with everything -->
     <noscript>
     <!-- Show a notification if the user has disabled javascript -->
@@ -22,7 +23,7 @@
           <!-- href must be unique and match the id of target div -->
         </ul>
         <div class="clear"></div>
-</div>
+	  </div>
       <!-- End .content-box-header -->
       <div class="content-box-content">
         <div class="tab-content default-tab" id="tab1">
