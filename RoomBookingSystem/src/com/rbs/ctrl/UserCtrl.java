@@ -69,6 +69,47 @@ public class UserCtrl extends RoomInfoCtrl {
 		return login(u.getName(),u.getPassword());
 	}
 	
+	public User findUserByName(String name){
+		Session session = sessionFactory.openSession();
+		Transaction tran=session.beginTransaction();
+
+		List<User> list=(List<User>)session.
+			createQuery( "from User u where u.name='"+name+"'" ).list();
+		
+		if(list.size()==1){
+			System.out.println("find 1 success!");
+			tran.commit();
+        	session.close();
+        	User u = list.get(0);
+			return u; //successful to find
+		}
+		else{
+			System.out.println("no such user");
+			tran.commit();
+        	session.close();
+        	return null; // fail to find
+		}
+	}
+	
+	public List<User> findUserAll(){
+		Session session = sessionFactory.openSession();
+		Transaction tran=session.beginTransaction();
+		String hql = "from User user";
+		List<User> list=(List<User>)session.createQuery(hql).list();
+		
+		if(list.size()>=1){
+			System.out.println("Find all success!");
+			tran.commit();
+        	session.close();
+			return list;
+		}
+		else{
+			System.out.println("no user");
+			tran.commit();
+        	session.close();
+        	return null;
+		}
+	}
 	/**
 	 * 
 	 * @param newUser   OK

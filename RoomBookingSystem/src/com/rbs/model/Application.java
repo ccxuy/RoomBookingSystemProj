@@ -43,6 +43,10 @@ public class Application {
 	public void setAppID(String appID) {
 		this.appID = appID;
 	}
+	
+	public void setAppID() {
+		this.appID = UUID.randomUUID().toString();
+	}
 
 	public String getRoomID() {
 		return roomID;

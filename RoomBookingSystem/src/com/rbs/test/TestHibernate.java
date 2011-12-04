@@ -32,7 +32,7 @@ public class TestHibernate extends TestCase {
 			sessionFactory.close();
 		}
 	}
-	/*public void testBasicUsage() {
+	public void testBasicUsage() {
 		// create a couple of events...
 		Session session = sessionFactory.openSession();
 		session.beginTransaction();
@@ -54,7 +54,7 @@ public class TestHibernate extends TestCase {
         session.getTransaction().commit();
         session.close();
 
-	}*/
+	}
 	/*public void testApplicationHbm() throws ParseException{
 		Session session = sessionFactory.openSession();
 		session.beginTransaction();

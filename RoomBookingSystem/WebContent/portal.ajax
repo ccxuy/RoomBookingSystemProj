@@ -7,17 +7,17 @@
     <h2>Welcome to Room Booking System</h2>
     <p id="page-intro">What would you like to do?</p>
     <ul class="shortcut-buttons-set">
-      <li><a class="shortcut-button" href="query.html"><span> <img src="resources/images/icons/pencil_48.png" alt="icon" /><br />
+      <li><a class="shortcut-button" onclick="loadQuery()" href="#"><span> <img src="resources/images/icons/pencil_48.png" alt="icon" /><br />
         Query and Apply Room </span></a></li>
-      <li><a class="shortcut-button" href="myapplication.html"><span> <img src="resources/images/icons/paper_content_pencil_48.png" alt="icon" /><br />
+      <li><a class="shortcut-button" onclick="loadApp()" href="#"><span> <img src="resources/images/icons/paper_content_pencil_48.png" alt="icon" /><br />
         My Applications </span></a></li>
       <li><a class="shortcut-button" href="#"><span> <img src="resources/images/icons/image_add_48.png" alt="icon" /><br />
         Upload Room Information </span></a></li>
       <li><a class="shortcut-button" href="#"><span> <img src="resources/images/icons/clock_48.png" alt="icon" /><br />
         Maintain Room Information </span></a></li>
-      <li><a class="shortcut-button" href="manageusers.html" ><span> <img src="resources/images/icons/comment_48.png" alt="icon" /><br />
+      <li><a class="shortcut-button" onclick="loadManage()" href="#" ><span> <img src="resources/images/icons/comment_48.png" alt="icon" /><br />
         Manage Users </span></a></li>
-        <li><a class="shortcut-button" href="viewratio.html" ><span> <img src="resources/images/icons/comment_48.png" alt="icon" /><br />
+        <li><a class="shortcut-button" onclick="loadRatio()" href="#" ><span> <img src="resources/images/icons/comment_48.png" alt="icon" /><br />
         View Use Ratio </span></a></li>
     </ul>
     <!-- End .shortcut-buttons-set -->

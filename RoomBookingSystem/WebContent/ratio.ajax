@@ -48,7 +48,7 @@
                 </td>
               </tr>
             </tfoot>
-            <tbody>
+            <tbody id="ratio-table">
               <tr>
                 <td>B102</td>
                 <td>10 %</td>

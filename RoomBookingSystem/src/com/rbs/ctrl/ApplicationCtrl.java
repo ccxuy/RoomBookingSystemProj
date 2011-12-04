@@ -6,6 +6,7 @@ import java.util.List;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.cfg.Configuration;
 
 import com.rbs.model.Application;
 import com.rbs.model.RoomInfo;
@@ -16,6 +17,13 @@ import com.rbs.model.RoomInfo;
  */
 public class ApplicationCtrl {
 	private SessionFactory sessionFactory;
+	
+	public ApplicationCtrl() {
+		super();
+		sessionFactory = new Configuration()
+        .configure() // configures settings from hibernate.cfg.xml
+        .buildSessionFactory();
+	}
 	/**
 	 * 
 	 * @param aid
@@ -30,6 +38,28 @@ public class ApplicationCtrl {
 		session.close();
 		return result;
 	}
+	public List<Application> findApplicationByUid(String uid) {
+		Session session = sessionFactory.openSession();
+		session.beginTransaction();
+		String hql = "from Application A where A.applyerID='"+uid+"'";
+		List<Application> result = (List<Application>)session.createQuery(hql).list();
+		session.getTransaction().commit();
+		session.close();
+		System.out.println("findApplication of "+uid+"\n"+result.size());
+		if(result.size()>=0){
+		System.out.println("get first status "+result.get(0).getStatus());
+		}
+		return result;
+	}
+	public List<Application> findApplicationAll() {
+		Session session = sessionFactory.openSession();
+		session.beginTransaction();
+		String hql = "from Application";
+		List result = session.createQuery(hql).list();
+		session.getTransaction().commit();
+		session.close();
+		return result;
+	}
 
 	/**
 	 * 
@@ -37,20 +67,22 @@ public class ApplicationCtrl {
 	 * @return 1-> apply successfully
 	 */
 	public int applyRoom(Application app) {
+		int flag = 0;
 		Session session = sessionFactory.openSession();
 		session.beginTransaction();
 		String rid=app.getRoomID();
-		String hql="select RI.* from RoomInfo RI where RI.roomID='"+rid+"'";
-		List result = session.createQuery(hql).list();
+		String hql="from RoomInfo RI where RI.roomID='"+rid+"'";
+		List<RoomInfo> result = (List<RoomInfo>)session.createQuery(hql).list();
 		for ( RoomInfo ri : (List<RoomInfo>) result ) {
 			if(isAvailable(app, ri)==1){
 				session.save(app);
-				session.getTransaction().commit();
-				session.close();
-				return 1;
+				flag = 1;
 			}
 		}
-		return 0;
+		session.getTransaction().commit();
+		session.close();
+		System.out.println("applyRoom res: "+flag);
+		return flag;
 	}
 
 	/**
@@ -130,18 +162,18 @@ public class ApplicationCtrl {
 		System.out.println(app.toTimeString());
 		System.out.println("dateEnd.after(dateBegin):");
 		if(appEnd.compareTo(appBegin)>=0){
-			System.out.println("->after");
+			System.out.println("      >after");
 		}else{
-			System.err.println(" NOT after");
+			System.err.println("      >NOT after");
 			flag = -1;
 		}
 		//RoomInfo
 		System.out.println(ri.toTimeString());
 		System.out.println("dateEnd.after(dateBegin):");
 		if(riEnd.compareTo(riBegin)>=0){
-			System.out.println("after");
+			System.out.println("       >after");
 		}else{
-			System.err.println(" NOT after");
+			System.err.println("        >NOT after");
 			flag = -1;
 		}
 		
@@ -178,7 +210,7 @@ public class ApplicationCtrl {
 			System.err.println("applicion's date is NOT in room info's date");
 			flag = 0;
 		}
-		
+		System.out.println("isAvailable : "+flag);
 		return flag;
 	}
 	

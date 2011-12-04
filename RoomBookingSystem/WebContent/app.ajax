@@ -34,8 +34,10 @@
                 <th>Room No.</th>
                 <th>Capacities</th>
                 <th>Facilities</th>
-                <th>From</th>
-                <th>To</th>
+                <th>Date Begin</th>
+                <th>Date End</th>
+                <th>Time Begin</th>
+                <th>Time End</th>
                 <th>Status</th>
               </tr>
             </thead>
@@ -43,39 +45,7 @@
               <!--foot of table-->
             </tfoot>
             <tbody>
-              <tr>
-                <td>B102</td>
-                <td>60</td>
-                <td>Projector</td>
-                <td>6:00 am</td>
-                <td>10:00 pm</td>
-                <td>
-                  <!-- Icons -->
-          <img src="resources/images/icons/information.png" />
-                 </td>
-              </tr>
-              <tr>
-                <td>C402</td>
-                <td>30</td>
-                <td>Computers</td>
-                <td>8:00 am</td>
-                <td>4:00 pm</td>
-                <td>
-                  <!-- Icons -->
-          <img src="resources/images/icons/cross_circle.png" />
-                </td>
-              </tr>
-              <tr>
-                <td>E308A</td>
-                <td>40</td>
-                <td>Microphone</td>
-                <td>7:00 am</td>
-                <td>5:00 pm</td>
-                <td>
-                  <!-- Icons -->
-          <img src="resources/images/icons/tick_circle.png" /> 
-                </td>
-              </tr>
+              
             </tbody>
           </table>
         </div>

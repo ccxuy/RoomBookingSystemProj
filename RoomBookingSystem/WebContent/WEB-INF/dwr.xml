@@ -21,5 +21,11 @@
 	    <convert converter="bean" match="com.rbs.model.RoomInfo">
 			<param name="include" value="roomInfoID,roomID,dateBegin,dateEnd,daysOfWeek,timeBegin,timeEnd" />
 		</convert>
+		<convert converter="bean" match="com.rbs.model.User">
+			<param name="include" value="uid,name,password,permission,phone,email" />
+		</convert>
+		<convert converter="bean" match="com.rbs.model.Application">
+			<param name="include" value="appID,roomID,dateBegin,dateEnd,daysOfWeek,timeBegin,timeEnd,applyerID,status,applyTime" />
+		</convert>
 	</allow>
 </dwr>

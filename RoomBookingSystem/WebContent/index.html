@@ -11,7 +11,13 @@
 <!-- Invalid Stylesheet. This makes stuff look pretty. Remove it if you want the CSS completely valid -->
 <link rel="stylesheet" href="resources/css/invalid.css" type="text/css" media="screen" />
 <!-- JQuery UI CSS   -->
-<link rel="stylesheet" href="resources/css/jquery-ui-1.8.12.custom.css" type="text/css" />
+<link rel="stylesheet" href="resources/css/jquery-ui-1.8.16.custom.css" type="text/css" />
+<style type="text/css">
+.shortcut-button {
+	height:125px;
+	width:125px;
+}
+</style>
 <!--                       Javascripts                       -->
 <!-- jQuery -->
 <script type="text/javascript" src="resources/scripts/jquery-1.3.2.min.js"></script>
@@ -33,19 +39,24 @@
 <script type='text/javascript' src='/se/dwr/interface/uiaccess.js'></script>
 <script type='text/javascript' src='/se/dwr/util.js'></script>
 <script type="text/javascript">
+	var roomid,
+		dateBegin,
+		dateEnd,
+		timeBegin,
+		timeEnd,
+		allFields,
+		tips;
 	$(checkLogin);
 	function loadQueryTable(){
 		$("tbody").html("");
 		uiaccess.query(callbackQueryTable);
 	}
 	function callbackQueryTable(request){
-                
 		for(var i=0;i<request.length;i++){
 			$("tbody").append("<tr>");
 			$("tbody").append("<td>"+request[i].roomID+"</td>");
 			$("tbody").append("<td>Capacities</td>");
 			$("tbody").append("<td>Facilities</td>");
-			
 			$("tbody").append("<td>"+request[i].dateBegin.toLocaleDateString()+"</td>");
 			$("tbody").append("<td>"+request[i].dateEnd.toLocaleDateString()+"</td>");
 			$("tbody").append("<td>"+request[i].timeBegin.toLocaleTimeString()+"</td>");
@@ -62,10 +73,26 @@
 	function loadApplyDialog(){
 		$("#apply-dialog").dialog("open");
 	}
+	function callbackPermission(p){
+		$.cookie("permission",p);
+		if(p=="NOT REGISTERED"){
+			location.href="/se/login.html";
+			alert("You havn't pass validation");
+		}
+		if(p=="ADMIN"){
+			$("#manage").show();
+		}
+		if(p=="MANAGER"){
+			$("#room-mgr").show();
+			$("#ratio").show();
+		}
+	}
 	function callbackLogin(loginRequest){
 		if(loginRequest==1){
+			uiaccess.getUserPermissionByName($.cookie("uname"),callbackPermission);
 		}else{
 			location.href="/se/login.html";
+			alert("Please login first");
 		}
 	}
 	function checkLogin(){
@@ -73,11 +100,12 @@
 			passwd = $.cookie("passwd");
 		$("#username").text(uname);
 		loadPortal();
-		uiaccess.login(uname,pwd,callbackLogin);
+		uiaccess.login(uname,passwd,callbackLogin);
 	}
 	function logout(){
 		$.cookie("uname",null);
 		$.cookie("passwd",null);
+		$.cookie("permission",null);
 		location.href="/se/login.html";
 	}
 	function loadPortal(){
@@ -87,6 +115,13 @@
 		$("#main-content").html("");
 		$("#main-content").html(htmlobj.responseText);
 	}
+	function callbackApplyRoom(loginRequest){
+		if(loginRequest==1){
+			alert("saved");
+		}else{
+			alert("errors!");
+		}
+	}
 	function loadQuery(){
 		$("a").removeClass("current");
 		$("#query").addClass("current");
@@ -95,22 +130,29 @@
 		$("#main-content").html(htmlobj.responseText);
 		$(loadQueryTable);
 		$( "#dialog:ui-dialog" ).dialog( "destroy" );
+		roomid = $("#roomID"),
+		dateBegin = $("#dateBegin"),
+		dateEnd = $("#dateEnd"),
+		timeBegin = $("#timeBegin"),
+		timeEnd = $("#timeEnd"),
+		allFields = $( [] ).add( roomid ),
+		tips = $( ".validateTips" );
 		$( "#dialog-form" ).dialog({
 			autoOpen: false,
-			height: 450,
-			width: 400,
+			height: 400,
+			width: 350,
 			modal: true,
 			buttons: {
 				"Apply": function() {
 					var bValid = true;
 					allFields.removeClass( "ui-state-error" );
-
 					bValid = bValid && checkLength( roomid, "roomID", 1, 16 );
-
-					bValid = bValid && checkRegexp( name, /^([0-9a-z_])+$/i, "Room ID may consist of a-z, 0-9, underscores" );
+					bValid = bValid && checkRegexp( roomid, /^([0-9a-z_])+$/i, "Room ID may consist of a-z, 0-9, underscores" );
 
 					if ( bValid ) {
+						//alert("Submiting");
 						//send to server
+						uiaccess.apply(roomid.val(),dateBegin.val(),dateEnd.val(),timeBegin.val(),timeEnd.val(),$.cookie("uname"),callbackApplyRoom);
 						$( this ).dialog( "close" );
 					}
 				},
@@ -122,6 +164,28 @@
 				allFields.val( "" ).removeClass( "ui-state-error" );
 			}
 		});
+		$( "#dateBegin" ).datepicker();
+		$( "#dateEnd" ).datepicker();
+	}
+	function callbackMyAppTable(request){
+		for(var i=0;i<request.length;i++){
+			$("tbody").append("<tr>");
+			$("tbody").append("<td>"+request[i].roomID+"</td>");
+			$("tbody").append("<td>Capacities</td>");
+			$("tbody").append("<td>Facilities</td>");
+			$("tbody").append("<td>"+request[i].dateBegin.toLocaleDateString()+"</td>");
+			$("tbody").append("<td>"+request[i].dateEnd.toLocaleDateString()+"</td>");
+			$("tbody").append("<td>"+request[i].timeBegin.toLocaleTimeString()+"</td>");
+			$("tbody").append("<td>"+request[i].timeEnd.toLocaleTimeString()+"</td>");
+			$("tbody").append("<td>"+toStringFromStatus(request[i].status)+"</td>");
+			$("tbody").append("</tr>");
+		}
+	}
+	function toStringFromStatus(s){
+		if(s==0)return "TBD";
+		if(s==1)return "Accepted";
+		if(s==-1)return "Rejected";
+		return "Unknow err";
 	}
 	function loadApp(){
 		$("a").removeClass("current");
@@ -129,6 +193,34 @@
 		htmlobj=$.ajax({url:"/se/app.ajax",async:false});
 		$("#main-content").html("");
 		$("#main-content").html(htmlobj.responseText);
+		uiaccess.displayMyApplicaiton($.cookie("uname"),callbackMyAppTable);
+	}
+	function callbackUserTable(request){
+		$("tbody#exist-user-table").html("");
+		for(var i=0;i<request.length;i++){
+			$("tbody#exist-user-table").append("<tr>");
+			$("tbody#exist-user-table").append("<td>"+request[i].name+"</td>");
+			$("tbody#exist-user-table").append("<td>"+request[i].permission+"</td>");
+			$("tbody#exist-user-table").append("<td>"+request[i].email+"</td>");
+			$("tbody#exist-user-table").append("<td>"+request[i].phone+"</td>");
+			$("tbody#exist-user-table").append("<td><button class=\"set-app\" onclick=\"setUserApplicant(value)\" value=\""+request[i].name+"\"><img src=\"resources/images/icons/tick_circle.png\"/>Set Applicant</button><button class=\"set-mgr\" onclick=\"setUserManager(value)\" value=\""+request[i].name+"\"><img src=\"resources/images/icons/tick_circle.png\"/>Set Manager</button><button class=\"set-del\" onclick=\"delUser(value)\" value=\""+request[i].name+"\"><img src=\"resources/images/icons/cross_circle.png\"/>Delete User</button></td>");
+			$("tbody#exist-user-table").append("</tr>");
+		}
+	}
+	function setUserManager(val){
+		uiaccess.setUserManager(val);
+		alert("OK");
+		loadManage();
+	}
+	function setUserApplicant(val){
+		uiaccess.setUserApplicant(val);
+		alert("OK");
+		loadManage();
+	}
+	function delUser(val){
+		uiaccess.delUser(val);
+		alert("OK");
+		loadManage();
 	}
 	function loadManage(){
 		$("a").removeClass("current");
@@ -136,6 +228,7 @@
 		htmlobj=$.ajax({url:"/se/manage.ajax",async:false});
 		$("#main-content").html("");
 		$("#main-content").html(htmlobj.responseText);
+		uiaccess.displayUser(callbackUserTable);
 	}
 	function loadRatio(){
 		$("a").removeClass("current");
@@ -150,6 +243,33 @@
 		htmlobj=$.ajax({url:"/se/"+filename+".ajax",async:false});
 		$("#main-content").html("");
 		$("#main-content").html(htmlobj.responseText);
+	}
+	function checkLength( o, n, min, max ) {
+		if ( o.val().length > max || o.val().length < min ) {
+			o.addClass( "ui-state-error" );
+			updateTips( "Length of " + n + " must be between " +
+				min + " and " + max + "." );
+			return false;
+		} else {
+			return true;
+		}
+	}
+	function checkRegexp( o, regexp, n ) {
+		if ( !( regexp.test( o.val() ) ) ) {
+			o.addClass( "ui-state-error" );
+			updateTips( n );
+			return false;
+		} else {
+			return true;
+		}
+	}
+	function updateTips( t ) {
+		tips
+			.text( t )
+			.addClass( "ui-state-highlight" );
+		setTimeout(function() {
+			tips.removeClass( "ui-state-highlight", 1500 );
+		}, 500 );
 	}
 </script>
 </head>
@@ -175,15 +295,15 @@
         <li> <a id="app" class="nav-top-item" onclick="loadApp()">
           My Applications </a>
         </li>
-        <li> <a href="#" class="nav-top-item">Room Information Management</a>
+        <li> <a id="room-mgr" style="display: none; " href="#" class="nav-top-item">Room Information Management</a>
           <ul>
             <li><a href="#">Upload Room Information</a></li>
             <li><a href="#">Maintain Room Information </a></li>
           </ul>
         </li>
-        <li> <a id="manage" onclick="loadManage()" class="nav-top-item">User Management </a>
+        <li> <a id="manage" onclick="loadManage()" style="display: none; " href="#" class="nav-top-item">User Management </a>
         </li>
-        <li> <a id="ratio" onclick="loadRatio()" class="nav-top-item"> View Use Ratio </a>
+        <li> <a id="ratio" onclick="loadRatio()" style="display: none; " href="#" class="nav-top-item"> View Use Ratio </a>
         </li>
       </ul>
       <!-- End #main-nav -->

@@ -31,9 +31,7 @@
 
 	$(document).ready(function(){
 			//$(document).bind('keydown', 'return', function(){$("#submit-button").trigger('click');});
-			$("#submit-button").click(function () {
-				var d = Date();
-				ad.getMonth();
+		$("#submit-button").click(function () {
             var wrongTypeName = 0,
             wrongTypePwd = 0,
             uname = $("#uname").val(),
@@ -115,7 +113,7 @@
       
       <div class="clear"></div>
       <p>
-        <input id="submit-button" class="button" value="Sign In" onclick="doLogin()" style="width: 50px;
+        <input id="submit-button" class="button" value="Sign In" style="width: 50px;
 				margin-top: 20px;"/ >
       </p>
     </form>
