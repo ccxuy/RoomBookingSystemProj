@@ -22,6 +22,37 @@
 <!-- jQuery Datepicker Plugin -->
 <script type="text/javascript" src="resources/scripts/jquery.datePicker.js"></script>
 <script type="text/javascript" src="resources/scripts/jquery.date.js"></script>
+<!-- jQuery Cookies Plugin -->
+<script type="text/javascript" src="resources/scripts/jquery.cookie.js"></script>
+<!-- DWR -->
+<script type='text/javascript' src='/se/dwr/engine.js'></script>
+<script type='text/javascript' src='/se/dwr/interface/LoginUI.js'></script>
+<script type='text/javascript' src='/se/dwr/util.js'></script>
+<script type="text/javascript">
+	$(checkLogin);
+	$(document).ready(function(){
+		var uname = $.cookie("uname"),
+			passwd = $.cookie("passwd");
+		
+	});
+	function callbackLogin(loginRequest){
+		if(loginRequest==1){
+		}else{
+			location.href="/se/login.html";
+		}
+	}
+	function checkLogin(){
+		var uname = $.cookie("uname"),
+			passwd = $.cookie("passwd");
+		$("#username").text(uname);
+		LoginUI.login(uname,pwd,callbackLogin);
+	}
+	function logout(){
+		$.cookie("uname",null);
+		$.cookie("passwd",null);
+		location.href="/se/login.html";
+	}
+</script>
 </head>
 <body>
 <div id="body-wrapper">
@@ -33,8 +64,8 @@
       <!-- Logo (221px wide) -->
       <a href="#"><img id="logo" src="resources/images/logo.png" alt="UIC room booking logo" /></a>
       <!-- Sidebar Profile links -->
-      <div id="profile-links"> Hello, <a href="#" title="Edit your profile">user</a>|
-        <a href="login.html" title="Sign Out">Sign out</a> </div>
+      <div id="profile-links"> Hello, <a id="username" href="#" title="Edit your profile">user</a>|
+        <a href="login.html" title="Sign Out" onclick="logout()">Sign out</a> </div>
       <ul id="main-nav">
         <!-- Accordion Menu -->
         <li> <a href="index.html" class="nav-top-item current">

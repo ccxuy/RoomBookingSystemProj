@@ -7,6 +7,7 @@
 	<allow>
 		<create creator="new" javascript="LoginUI">
 			<param name="class" value="com.rbs.uiAccess.LoginUI" />
+			<include method="login"/>
 		</create>
 		<create creator="new" javascript="JDate">
 			<param name="class" value="java.util.Date" />

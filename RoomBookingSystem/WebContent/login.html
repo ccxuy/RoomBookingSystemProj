@@ -19,10 +19,71 @@
 <script type="text/javascript" src="resources/scripts/facebox.js"></script>
 <!-- jQuery WYSIWYG Plugin -->
 <script type="text/javascript" src="resources/scripts/jquery.wysiwyg.js"></script>
+<!-- jQuery Cookies Plugin -->
+<script type="text/javascript" src="resources/scripts/jquery.cookie.js"></script>
 <!-- DWR -->
 <script type='text/javascript' src='/se/dwr/engine.js'></script>
 <script type='text/javascript' src='/se/dwr/interface/LoginUI.js'></script>
 <script type='text/javascript' src='/se/dwr/util.js'></script>
+<script type="text/javascript">
+
+	//$(document).bind('keydown', 'return', function(){$("#submit-button").trigger('click');});
+    //?????????
+	$(document).ready(function(){
+			$("#submit-button").click(function () {
+            var wrongTypeName = 0,//????????,?????????????????
+            wrongTypePwd = 0,//?????????
+            uname = $("#uname").val(),//???
+            pwd = $("#passwd").val(),//????
+            plength = pwd.length,
+            nlength = uname.length,//??
+            wrongNameHtml = new Array("", "Please input user name", "???????", "???????12?", "??????????", "??,?????"),
+            wrongPwdHtml = new Array("", "Please input password", "??????6?", "??????20?", "?????????");
+            //?????????????
+			
+			
+			
+            if (nlength == 0) {
+                wrongTypeName = 1;
+            }
+            if (nlength > 20) {
+                wrongTypeName = 3;
+            }
+
+            var inputTip = function (index, tipHtml, tipNum) {
+                $(".reg-tip").eq(index).html(tipHtml[tipNum]);
+                if (tipNum > 0)
+                    $(".reg-item").eq(index).addClass("error");
+                else
+                    $(".reg-item").eq(index).removeClass("error");
+            }//????????????????????????????????????index,????????,????$(this).index()
+
+            inputTip(0, wrongNameHtml, wrongTypeName);
+            inputTip(1, wrongPwdHtml, wrongTypePwd);
+
+            if (wrongTypePwd == 0 && wrongTypeName == 0) {//???????????????,????????0 ????ajax??
+                //$(".reg-input").attr('disabled', true);
+                $("#login-content").attr('disabled', true);
+                var $params = "username=" + uname + "&password=" + pwd ;
+                //alert($params);
+				LoginUI.login(uname,pwd,callbackLogin);
+            }
+        });
+		
+	});
+	function callbackLogin(loginRequest){
+		if(loginRequest==1){
+			//help:???????cookies
+			$.cookie("uname", $("#uname").val());
+			$.cookie("passwd", $("#passwd").val());
+			location.href="/se/index.html";
+		}else{
+			$("#errorbox").prepend("<label class=\"error\"></label>");
+			$("#errorbox").text("Login FAILED!!");
+			$("#errorbox").css("color","red");
+		}
+	}
+</script>
 </head>
 <body id="login">
 <div id="login-wrapper" class="png_bg">
@@ -32,24 +93,28 @@
     <img src="resources/images/logo.png" alt="Simpla Admin logo" width="230" height="83" id="logo" /> </div>
   <!-- End #logn-top -->
   <div id="login-content">
-    <form action="index.html">
+    <form >
       <div class="notification information png_bg">
         <div><a href="register.html"> No account? Click for free registration! </a> </div>
       </div>
+	  <p class="reg-tip"></p>
+	  <p class="reg-item"></p>
+	  <p id="errorbox" ></p>
+	  
       <p>
         <label>Username</label>
-        <input class="text-input" type="text" />
+        <input id="uname" class="text-input" type="text" />
       </p>
       <div class="clear"></div>
       <p>
         <label>Password</label>
-        <input class="text-input" type="password" />
+        <input id="passwd" class="text-input" type="password" />
       </p>
       <div class="clear"></div>
       
       <div class="clear"></div>
       <p>
-        <input class="button" type="submit" value="Sign In" />
+        <input id="submit-button" class="button" value="Sign In" onclick="doLogin()"/>
       </p>
     </form>
   </div>
