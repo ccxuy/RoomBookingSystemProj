@@ -61,7 +61,7 @@
 			$("tbody").append("<td>"+request[i].dateEnd.toLocaleDateString()+"</td>");
 			$("tbody").append("<td>"+request[i].timeBegin.toLocaleTimeString()+"</td>");
 			$("tbody").append("<td>"+request[i].timeEnd.toLocaleTimeString()+"</td>");
-			$("tbody").append("<td><button class=\"create-apply\"> <img src=\"resources/images/icons/pencil.png\" />Create Apply</button></td>");
+			$("tbody").append("<td><button class=\"create-apply\"><img src=\"resources/images/icons/pencil.png\"/>Create Apply</button></td>");
 			$("tbody").append("</tr>");
 		}
 		$( ".create-apply" )
@@ -81,10 +81,14 @@
 		}
 		if(p=="ADMIN"){
 			$("#manage").show();
+			$("#room-mgr").show();
+			$("#ratio").show();
+			$("#app-mgr").show();
 		}
 		if(p=="MANAGER"){
 			$("#room-mgr").show();
 			$("#ratio").show();
+			$("#app-mgr").show();
 		}
 	}
 	function callbackLogin(loginRequest){
@@ -114,6 +118,18 @@
 		htmlobj=$.ajax({url:"/se/portal.ajax",async:false});
 		$("#main-content").html("");
 		$("#main-content").html(htmlobj.responseText);
+		var p = $.cookie("permission");
+		if(p=="ADMIN"){
+			$("#manage-box").show();
+			$("#upload-room-info").show();
+			$("#maintain-room-info").show();
+			$("#ratio-box").show();
+		}
+		if(p=="MANAGER"){
+			$("#upload-room-info").show();
+			$("#maintain-room-info").show();
+			$("#ratio-box").show();
+		}
 	}
 	function callbackApplyRoom(loginRequest){
 		if(loginRequest==1){
@@ -194,6 +210,39 @@
 		$("#main-content").html("");
 		$("#main-content").html(htmlobj.responseText);
 		uiaccess.displayMyApplicaiton($.cookie("uname"),callbackMyAppTable);
+	}
+	function acceptApp(aid){
+		uiaccess.acceptApplication(aid);
+		alert("accepted");
+		loadAppManage();
+	}
+	function rejectApp(aid){
+		uiaccess.rejectApplication(aid);
+		alert("rejected");
+		loadAppManage();
+	}
+	function callbackAppMgrTable(request){
+		for(var i=0;i<request.length;i++){
+			$("tbody").append("<tr>");
+			$("tbody").append("<td>"+request[i].roomID+"</td>");
+			$("tbody").append("<td>Capacities</td>");
+			$("tbody").append("<td>Facilities</td>");
+			$("tbody").append("<td>"+request[i].dateBegin.toLocaleDateString()+"</td>");
+			$("tbody").append("<td>"+request[i].dateEnd.toLocaleDateString()+"</td>");
+			$("tbody").append("<td>"+request[i].timeBegin.toLocaleTimeString()+"</td>");
+			$("tbody").append("<td>"+request[i].timeEnd.toLocaleTimeString()+"</td>");
+			$("tbody").append("<td>"+toStringFromStatus(request[i].status)+"</td>");
+			$("tbody").append("<td><button class=\"create-apply\" onclick=\"acceptApp(value)\" value=\""+request[i].appID+"\"><img src=\"resources/images/icons/tick_circle.png\"/>Accept</button><button class=\"create-apply\" onclick=\"rejectApp(value)\" value=\""+request[i].appID+"\"><img src=\"resources/images/icons/cross_circle.png\"/>Reject</button></td>");
+			$("tbody").append("</tr>");
+		}
+	}
+	function loadAppManage(){
+		$("a").removeClass("current");
+		$("#app-mgr").addClass("current");
+		htmlobj=$.ajax({url:"/se/appmgr.ajax",async:false});
+		$("#main-content").html("");
+		$("#main-content").html(htmlobj.responseText);
+		uiaccess.displayAllApplicaiton(callbackAppMgrTable);
 	}
 	function callbackUserTable(request){
 		$("tbody#exist-user-table").html("");
@@ -295,11 +344,13 @@
         <li> <a id="app" class="nav-top-item" onclick="loadApp()">
           My Applications </a>
         </li>
-        <li> <a id="room-mgr" style="display: none; " href="#" class="nav-top-item">Room Information Management</a>
+        <li> <a id="room-mgr" style="display: none; " href="#" class="nav-top-item">Room Info Management</a>
           <ul>
             <li><a href="#">Upload Room Information</a></li>
             <li><a href="#">Maintain Room Information </a></li>
           </ul>
+        </li>
+		<li> <a id="app-mgr" onclick="loadAppManage()" style="display: none; " href="#" class="nav-top-item">Application Management </a>
         </li>
         <li> <a id="manage" onclick="loadManage()" style="display: none; " href="#" class="nav-top-item">User Management </a>
         </li>
