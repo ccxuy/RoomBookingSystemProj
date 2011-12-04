@@ -80,6 +80,7 @@ p {
                 font-size: 11px !important;
                 cursor: pointer;
                 }
+				
                 
 .button:hover {
                 text-decoration: underline;
@@ -638,7 +639,7 @@ body#login {
 				}
 				
 #login-wrapper #login-content p .button {
-				width: 50px;
+				width: auto;
 				margin-top: 20px;
 				}
 
