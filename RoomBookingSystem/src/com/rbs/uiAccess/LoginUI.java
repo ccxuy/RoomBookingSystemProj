@@ -4,10 +4,6 @@ import com.rbs.ctrl.UserCtrl;
 import com.rbs.model.User;
 
 public class LoginUI {
-	public String l = "yes";
-	public String testPassVal(String s){
-		return "success call: "+s;
-	}
 	/**
 	 * @param userId
 	 * @param pwd
