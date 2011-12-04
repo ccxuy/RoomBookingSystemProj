@@ -23,12 +23,12 @@
 <body id="login">
 <div id="login-wrapper" class="png_bg">
   <div id="login-top">
-    <h1>Simpla Admin</h1>
+    
     <!-- Logo (221px width) -->
     <img src="resources/images/logo.png" alt="Simpla Admin logo" width="230" height="83" id="logo" /> </div>
   <!-- End #logn-top -->
   <div id="login-content">
-    <form action="index.html">
+    <form action="waiting.html">
      
       <p>
         <label>Username</label>
@@ -37,17 +37,34 @@
       <div class="clear"></div>
       <p>
         <label>Password</label>
-        <input class="text-input" type="password" />
+        <input class="text-input" type="password" name="password" />
       </p>
       <div class="clear"></div>
+      <p>
         <label>Re-type Password</label>
-        <input class="text-input" type="password" />
+        <input class="text-input" type="password" name="retype_password"/>
+       </p>
       <div class="clear"></div>
+      <p>
+      	<label>Applied Role</label>
+             <select name="dropdown" style="width: 210px;
+             height:28px;
+float: right;
+margin: 0 0 20px 0;
+border: 0;
+background: white;">
+               <option value="option1">Applicant</option>
+               <option value="option2">Manager</option>
+              </select>
+      </p>
+      <div class="clear"></div>
+      <p>
       	<label>Email</label>
-        <input class="text-input" type="email" />
+        <input class="text-input" type="email" name="email"/>
+      </p>
       <div class="clear"></div>
       	<label>Phone</label>
-        <input class="text-input" type="phone" />
+        <input class="text-input" type="phone" name="phone"/>
       <p>
         <input class="button" type="submit" value="Create My Account" />
       </p>
