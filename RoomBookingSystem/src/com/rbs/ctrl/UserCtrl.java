@@ -22,6 +22,14 @@ public class UserCtrl extends RoomInfoCtrl {
 	public final String R_ADMIN = "ADMIN"; 
 	
 	private SessionFactory sessionFactory;
+	
+	public UserCtrl() {
+		super();
+		sessionFactory = new Configuration()
+        .configure() // configures settings from hibernate.cfg.xml
+        .buildSessionFactory();
+	}
+
 	/**
 	 * 
 	 * @return 
@@ -40,16 +48,18 @@ public class UserCtrl extends RoomInfoCtrl {
 
 		Session session = sessionFactory.openSession();
 		Transaction tran=session.beginTransaction();
-		String hql = "select u.* from User u where u.name='"+name+"' and u.password='"+password+"'";
+		String hql = "select u.* from User u where u.name=\""+name+"\" and u.password=\""+password+"\"";
 		Query query=session.createSQLQuery(hql);
 		List<User> list=query.list();
 		
 		if(list.size()==1){
+			System.out.println("Login success!");
 			tran.commit();
         	session.close();
 			return 1; //successful to login
 		}
 		else{
+			System.out.println("no such user or password err");
 			tran.commit();
         	session.close();
         	return 0; // fail to login

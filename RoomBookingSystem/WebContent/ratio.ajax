@@ -1,0 +1,75 @@
+<!-- Main Content Section with everything -->
+    <noscript>
+    <!-- Show a notification if the user has disabled javascript -->
+    <div class="notification error png_bg">
+    </noscript>
+    <!-- Page Head -->
+    <h2>Welcome to Room Booking System</h2>
+   
+    <ul class="shortcut-buttons-set">
+      
+    </ul>
+    <!-- End .shortcut-buttons-set -->
+    <div class="clear"></div>
+    <!-- End .clear -->
+    <div class="content-box">
+      <!-- Start Content Box -->
+
+      <div class="content-box-header">
+        <h3 class="h3"> My applications</h3>
+        <ul class="content-box-tabs">
+         
+          <!-- href must be unique and match the id of target div -->
+        </ul>
+        <div class="clear"></div>
+</div>
+      <!-- End .content-box-header -->
+      <div class="content-box-content">
+        <div class="tab-content default-tab" id="tab1">
+          <!-- This is the target div. id must match the href of this div's tab -->
+          
+          <table>
+            <thead>
+              <tr>
+                <th>Room No.</th>
+                <th>Ratio</th>
+                
+              </tr>
+            </thead>
+            <tfoot>
+              <tr>
+                <td colspan="6">
+                  <div class="bulk-actions align-left">
+                    <label>Room No</label>
+                    <input class="text-input" type="text" />
+                    <a class="button" href="#">Search</a> </div>
+                  <!-- End .pagination -->
+                  <div class="clear"></div>
+                </td>
+              </tr>
+            </tfoot>
+            <tbody>
+              <tr>
+                <td>B102</td>
+                <td>10 %</td>
+                
+              </tr>
+              <tr>
+                <td>C402</td>
+                <td>30 %</td>
+                
+              </tr>
+              <tr>
+                <td>E308A</td>
+                <td>50 %</td>
+               
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <!-- End #tab1 -->
+      
+  <!-- End #main-content -->
+</div>
+</div>
+</div>

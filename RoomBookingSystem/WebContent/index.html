@@ -1,7 +1,7 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <title>UIC Room Booking System</title>
 <!--                       CSS                       -->
 <!-- Reset Stylesheet -->
@@ -30,11 +30,7 @@
 <script type='text/javascript' src='/se/dwr/util.js'></script>
 <script type="text/javascript">
 	$(checkLogin);
-	$(document).ready(function(){
-		var uname = $.cookie("uname"),
-			passwd = $.cookie("passwd");
-		
-	});
+	$(loadPortal);
 	function callbackLogin(loginRequest){
 		if(loginRequest==1){
 		}else{
@@ -45,12 +41,55 @@
 		var uname = $.cookie("uname"),
 			passwd = $.cookie("passwd");
 		$("#username").text(uname);
+		loadPortal();
 		LoginUI.login(uname,pwd,callbackLogin);
 	}
 	function logout(){
 		$.cookie("uname",null);
 		$.cookie("passwd",null);
 		location.href="/se/login.html";
+	}
+	function loadPortal(){
+		$("a").removeClass("current");
+		$("#portal").addClass("current");
+		htmlobj=$.ajax({url:"/se/portal.ajax",async:false});
+		$("#main-content").html("");
+		$("#main-content").html(htmlobj.responseText);
+	}
+	function loadQuery(){
+		$("a").removeClass("current");
+		$("#query").addClass("current");
+		htmlobj=$.ajax({url:"/se/query.ajax",async:false});
+		$("#main-content").html("");
+		$("#main-content").html(htmlobj.responseText);
+	}
+	function loadApp(){
+		$("a").removeClass("current");
+		$("#app").addClass("current");
+		htmlobj=$.ajax({url:"/se/app.ajax",async:false});
+		$("#main-content").html("");
+		$("#main-content").html(htmlobj.responseText);
+	}
+	function loadManage(){
+		$("a").removeClass("current");
+		$("#manage").addClass("current");
+		htmlobj=$.ajax({url:"/se/manage.ajax",async:false});
+		$("#main-content").html("");
+		$("#main-content").html(htmlobj.responseText);
+	}
+	function loadRatio(){
+		$("a").removeClass("current");
+		$("#ratio").addClass("current");
+		htmlobj=$.ajax({url:"/se/ratio.ajax",async:false});
+		$("#main-content").html("");
+		$("#main-content").html(htmlobj.responseText);
+	}
+	function loadAjaxToMainContent(filename){
+		$("a").removeClass("current");
+		$("#"+filename+"").addClass("current");
+		htmlobj=$.ajax({url:"/se/"+filename+".ajax",async:false});
+		$("#main-content").html("");
+		$("#main-content").html(htmlobj.responseText);
 	}
 </script>
 </head>
@@ -68,12 +107,12 @@
         <a href="login.html" title="Sign Out" onclick="logout()">Sign out</a> </div>
       <ul id="main-nav">
         <!-- Accordion Menu -->
-        <li> <a href="index.html" class="nav-top-item current">
+        <li> <a id="portal" class="nav-top-item" onclick="loadPortal()">
           <!-- Add the class "no-submenu" to menu items with no sub menu -->
           Portal </a> </li>
-        <li> <a href="query.html" class="nav-top-item no-submenu">
+        <li> <a id="query" class="nav-top-item" onclick="loadQuery()">
           Query and Apply Room </a> </li>
-        <li> <a href="myapplication.html" class="nav-top-item no-submenu">
+        <li> <a id="app" class="nav-top-item" onclick="loadApp()">
           My Applications </a>
         </li>
         <li> <a href="#" class="nav-top-item">Room Information Management</a>
@@ -82,9 +121,9 @@
             <li><a href="#">Maintain Room Information </a></li>
           </ul>
         </li>
-        <li> <a href="manageusers.html" class="nav-top-item no-submenu">User Management </a>
+        <li> <a id="manage" onclick="loadManage()" class="nav-top-item">User Management </a>
         </li>
-        <li> <a href="viewratio.html" class="nav-top-item no-submenu"> View Use Ratio </a>
+        <li> <a id="ratio" onclick="loadRatio()" class="nav-top-item"> View Use Ratio </a>
         </li>
       </ul>
       <!-- End #main-nav -->
@@ -93,35 +132,9 @@
   </div>
   <!-- End #sidebar -->
   <div id="main-content">
-    <!-- Main Content Section with everything -->
-    <noscript>
-    <!-- Show a notification if the user has disabled javascript -->
-    <div class="notification error png_bg">
-    </noscript>
-    <!-- Page Head -->
-    <h2>Welcome to Room Booking System</h2>
-    <p id="page-intro">What would you like to do?</p>
-    <ul class="shortcut-buttons-set">
-      <li><a class="shortcut-button" href="query.html"><span> <img src="resources/images/icons/pencil_48.png" alt="icon" /><br />
-        Query and Apply Room </span></a></li>
-      <li><a class="shortcut-button" href="myapplication.html"><span> <img src="resources/images/icons/paper_content_pencil_48.png" alt="icon" /><br />
-        My Applications </span></a></li>
-      <li><a class="shortcut-button" href="#"><span> <img src="resources/images/icons/image_add_48.png" alt="icon" /><br />
-        Upload Room Information </span></a></li>
-      <li><a class="shortcut-button" href="#"><span> <img src="resources/images/icons/clock_48.png" alt="icon" /><br />
-        Maintain Room Information </span></a></li>
-      <li><a class="shortcut-button" href="manageusers.html" ><span> <img src="resources/images/icons/comment_48.png" alt="icon" /><br />
-        Manage Users </span></a></li>
-        <li><a class="shortcut-button" href="viewratio.html" ><span> <img src="resources/images/icons/comment_48.png" alt="icon" /><br />
-        View Use Ratio </span></a></li>
-    </ul>
-    <!-- End .shortcut-buttons-set -->
-    <div class="clear"></div>
-    <!-- End .clear -->
-    <div class="content-box">
-      <!-- Start Content Box -->
-      
+    
   <!-- End #main-content -->
+  </div>
 </div>
 </body>
 <!-- Download From www.exet.tk-->

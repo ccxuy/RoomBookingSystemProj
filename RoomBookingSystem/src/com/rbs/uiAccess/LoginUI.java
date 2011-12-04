@@ -12,13 +12,14 @@ public class LoginUI {
 	public int login(String userId,String pwd) {
         
         UserCtrl uc = new UserCtrl();
-        User u = new User();
         try {
-        	uc.login(u.getName(), u.getPassword());
+        	int res = uc.login(userId, pwd);
+        	System.out.println("Login : "+res);
+        	return res;
         } catch(Exception e) {
             e.printStackTrace();
         }
                 
-        return pwd.equals(u.getPassword()) ? 1 : 0;
+        return 0;
     }
 }

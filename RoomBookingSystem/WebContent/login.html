@@ -1,7 +1,7 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN""http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN""http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <title>Login to system</title>
 <!--                       CSS                       -->
 <!-- Reset Stylesheet -->
@@ -28,18 +28,16 @@
 <script type="text/javascript">
 
 	//$(document).bind('keydown', 'return', function(){$("#submit-button").trigger('click');});
-    //?????????
 	$(document).ready(function(){
 			$("#submit-button").click(function () {
-            var wrongTypeName = 0,//????????,?????????????????
-            wrongTypePwd = 0,//?????????
-            uname = $("#uname").val(),//???
-            pwd = $("#passwd").val(),//????
+            var wrongTypeName = 0,
+            wrongTypePwd = 0,
+            uname = $("#uname").val(),
+            pwd = $("#passwd").val(),
             plength = pwd.length,
-            nlength = uname.length,//??
-            wrongNameHtml = new Array("", "Please input user name", "???????", "???????12?", "??????????", "??,?????"),
-            wrongPwdHtml = new Array("", "Please input password", "??????6?", "??????20?", "?????????");
-            //?????????????
+            nlength = uname.length,
+            wrongNameHtml = new Array("", "Please input user name", "User name ecceed length"),
+            wrongPwdHtml = new Array("", "Please input password");
 			
 			
 			
@@ -47,7 +45,7 @@
                 wrongTypeName = 1;
             }
             if (nlength > 20) {
-                wrongTypeName = 3;
+                wrongTypeName = 2;
             }
 
             var inputTip = function (index, tipHtml, tipNum) {
@@ -56,12 +54,12 @@
                     $(".reg-item").eq(index).addClass("error");
                 else
                     $(".reg-item").eq(index).removeClass("error");
-            }//????????????????????????????????????index,????????,????$(this).index()
+            }
 
             inputTip(0, wrongNameHtml, wrongTypeName);
             inputTip(1, wrongPwdHtml, wrongTypePwd);
 
-            if (wrongTypePwd == 0 && wrongTypeName == 0) {//???????????????,????????0 ????ajax??
+            if (wrongTypePwd == 0 && wrongTypeName == 0) {
                 //$(".reg-input").attr('disabled', true);
                 $("#login-content").attr('disabled', true);
                 var $params = "username=" + uname + "&password=" + pwd ;
@@ -73,7 +71,6 @@
 	});
 	function callbackLogin(loginRequest){
 		if(loginRequest==1){
-			//help:???????cookies
 			$.cookie("uname", $("#uname").val());
 			$.cookie("passwd", $("#passwd").val());
 			location.href="/se/index.html";

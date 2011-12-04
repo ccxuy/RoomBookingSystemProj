@@ -24,8 +24,9 @@ public class ApplicationCtrl {
 	public List<Application> checkHistoryOfApp(String aid) {
 		Session session = sessionFactory.openSession();
 		session.beginTransaction();
-		String hql = "select A from Application A where A.appID='"+roomNum+"'";
+		String hql = "select A from Application A where A.appID='"+aid+"'";
 		List result = session.createQuery(hql).list();
+		return result;
 	}
 
 	/**
