@@ -99,14 +99,8 @@ public class RoomInfo {
 
 	@Override
 	public RoomInfo clone() {
-		// TODO Auto-generated method stub
-		try {
-			return (RoomInfo)super.clone();
-		} catch (CloneNotSupportedException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		return null;
+		RoomInfo ri = new RoomInfo(roomID, dateBegin, dateEnd, daysOfWeek, timeBegin, timeEnd);
+		return ri;
 	}
 
 	

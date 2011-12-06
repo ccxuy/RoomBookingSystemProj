@@ -42,19 +42,22 @@ public class UIAccess {
 		List<RoomInfo> res = ric.queryRoom();
 		return res;
 	}
-	public int apply(String rid, String dateBegin, String dateEnd, String timeBegin, String timeEnd, String applyerID){
+	public int apply(String rid, String dateBegin, String dateEnd, String timeBegin, String timeEnd, String applyerName){
+		System.out.println(dateBegin+"   &   "+dateEnd+"   &   "+timeBegin+"   &   "+timeEnd+"  \n-->"+new Date());
 		SimpleDateFormat dateFormat = new java.text.SimpleDateFormat("MM/dd/yyyy");
-		SimpleDateFormat timeFormat = new java.text.SimpleDateFormat("hh:mm");
+		SimpleDateFormat timeFormat = new java.text.SimpleDateFormat("H:mm");
 		try {
-			Application app = new Application(rid, dateFormat.parse(dateBegin), dateFormat.parse(dateEnd), "", timeFormat.parse(timeBegin), timeFormat.parse(timeEnd), applyerID, 0, new Date());
+			Application app = new Application(rid, dateFormat.parse(dateBegin), dateFormat.parse(dateEnd), "", timeFormat.parse(timeBegin), timeFormat.parse(timeEnd), uc.findUserByName(applyerName).getUid(), 0, new Date());
 			System.out.println(app.toTimeString());
-			ac.applyRoom(app);
+			int res = ac.applyRoom(app);
+			System.out.println("return : "+res);
+			return res;
 		} catch (ParseException e) {
+			System.err.println("dateFormat err");
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 			return -1;
 		}
-		return 1;
 	}
 	public List<User> displayUser(){
 		return uc.findUserAll();
@@ -75,7 +78,23 @@ public class UIAccess {
 		User u = uc.findUserByName(name);
 		return ac.findApplicationByUid(u.getUid());
 	}
+	public List<Application> displayAllApplicaiton(){
+		return ac.findApplicationAll();
+	}
 	public String getUserPermissionByName(String name){
 		return uc.findUserByName(name).getPermission();
+	}
+	public int acceptApplication(String aid){
+		Application app = ac.findApplicationByAid(aid);
+		if(app==null){
+		System.err.println("NO such app id");
+		return -1;
+		}else{
+		return ac.acceptApp(app);
+		}
+	}
+	public int rejectApplication(String aid){
+		Application app = ac.findApplicationByAid(aid);
+		return ac.rejectApp(app);
 	}
 }

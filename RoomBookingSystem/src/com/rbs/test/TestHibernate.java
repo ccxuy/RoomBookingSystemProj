@@ -32,12 +32,13 @@ public class TestHibernate extends TestCase {
 			sessionFactory.close();
 		}
 	}
+	
 	public void testBasicUsage() {
 		// create a couple of events...
 		Session session = sessionFactory.openSession();
 		session.beginTransaction();
-		User u1 = new User("xxxxxx","123","applicant","123","1@1.1");
-		User u2 = new User("gdf1","123","applicant","123","1@1.1");
+		User u1 = new User("admin","123123","ADMIN","123","1@1.1");
+		User u2 = new User("qwe","123","applicant","123","1@1.1");
 		System.out.println("SAVE");
 		session.save((Object)u1);
 		session.update(u1);
@@ -85,8 +86,8 @@ public class TestHibernate extends TestCase {
 		Session session = sessionFactory.openSession();
 		session.beginTransaction();
 		java.text.SimpleDateFormat format = new java.text.SimpleDateFormat("yyyy-MM-dd");  
-		java.util.Date dateBegin= format.parse("2022-12-1");   
-		java.util.Date dateEnd= format.parse("2022-12-31");
+		java.util.Date dateBegin= format.parse("2011-12-1");   
+		java.util.Date dateEnd= format.parse("2011-12-31");
 		DateFormat df=new SimpleDateFormat("hh:mm");
 		RoomInfo a = new RoomInfo();
 		a.setRoomInfoID();
@@ -95,10 +96,10 @@ public class TestHibernate extends TestCase {
 		a.setDateEnd(dateEnd);
 		a.setDaysOfWeek("101");
 		a.setTimeBegin(df.parse("10:00"));
-		a.setTimeEnd(df.parse("11:00"));
+		a.setTimeEnd(df.parse("13:00"));
 		System.out.println("SAVE");
 		session.save(a);
-		//session.delete(a);
+		//session.delete(a);@test@test
 		session.getTransaction().commit();
 		session.close();
 	}

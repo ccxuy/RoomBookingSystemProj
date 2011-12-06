@@ -61,7 +61,7 @@
 			$("tbody").append("<td>"+request[i].dateEnd.toLocaleDateString()+"</td>");
 			$("tbody").append("<td>"+request[i].timeBegin.toLocaleTimeString()+"</td>");
 			$("tbody").append("<td>"+request[i].timeEnd.toLocaleTimeString()+"</td>");
-			$("tbody").append("<td><button class=\"create-apply\"><img src=\"resources/images/icons/pencil.png\"/>Create Apply</button></td>");
+			$("tbody").append("<td><button class=\"create-apply\"><img src=\"resources/images/icons/pencil.png\"/> Apply </button></td>");
 			$("tbody").append("</tr>");
 		}
 		$( ".create-apply" )
@@ -134,6 +134,7 @@
 	function callbackApplyRoom(loginRequest){
 		if(loginRequest==1){
 			alert("saved");
+			loadApp();
 		}else{
 			alert("errors!");
 		}
@@ -146,13 +147,7 @@
 		$("#main-content").html(htmlobj.responseText);
 		$(loadQueryTable);
 		$( "#dialog:ui-dialog" ).dialog( "destroy" );
-		roomid = $("#roomID"),
-		dateBegin = $("#dateBegin"),
-		dateEnd = $("#dateEnd"),
-		timeBegin = $("#timeBegin"),
-		timeEnd = $("#timeEnd"),
-		allFields = $( [] ).add( roomid ),
-		tips = $( ".validateTips" );
+		
 		$( "#dialog-form" ).dialog({
 			autoOpen: false,
 			height: 400,
@@ -160,13 +155,20 @@
 			modal: true,
 			buttons: {
 				"Apply": function() {
-					var bValid = true;
+					var bValid = true,
+					roomid = $("#roomID"),
+					dateBegin = $("#dateBegin"),
+					dateEnd = $("#dateEnd"),
+					timeBegin = $("#timeBegin"),
+					timeEnd = $("#timeEnd"),
+					allFields = $( [] ).add( roomid ),
+					tips = $( ".validateTips" );
 					allFields.removeClass( "ui-state-error" );
-					bValid = bValid && checkLength( roomid, "roomID", 1, 16 );
-					bValid = bValid && checkRegexp( roomid, /^([0-9a-z_])+$/i, "Room ID may consist of a-z, 0-9, underscores" );
+					//bValid = bValid && checkLength( roomid, "roomID", 1, 16 );
+					//bValid = bValid && checkRegexp( roomid, /^([0-9a-z_])+$/i, "Room ID may consist of a-z, 0-9, underscores" );
 
 					if ( bValid ) {
-						//alert("Submiting");
+						alert("Submiting : "+roomid.val()+dateBegin.val()+dateEnd.val()+timeBegin.val()+timeEnd.val());
 						//send to server
 						uiaccess.apply(roomid.val(),dateBegin.val(),dateEnd.val(),timeBegin.val(),timeEnd.val(),$.cookie("uname"),callbackApplyRoom);
 						$( this ).dialog( "close" );
@@ -200,7 +202,7 @@
 	function toStringFromStatus(s){
 		if(s==0)return "TBD";
 		if(s==1)return "Accepted";
-		if(s==-1)return "Rejected";
+		if(s==2)return "Rejected";
 		return "Unknow err";
 	}
 	function loadApp(){

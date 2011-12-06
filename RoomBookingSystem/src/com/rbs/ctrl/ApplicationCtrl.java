@@ -51,6 +51,19 @@ public class ApplicationCtrl {
 		}
 		return result;
 	}
+	public Application findApplicationByAid(String aid) {
+		Session session = sessionFactory.openSession();
+		session.beginTransaction();
+		String hql = "from Application A where A.appID='"+aid+"'";
+		List<Application> result = (List<Application>)session.createQuery(hql).list();
+		session.getTransaction().commit();
+		session.close();
+		System.out.println("findApplication of "+aid+"\n    >find: "+result.size());
+		if(result.size()==1){
+			return result.get(0);
+		}
+		return null;
+	}
 	public List<Application> findApplicationAll() {
 		Session session = sessionFactory.openSession();
 		session.beginTransaction();
@@ -96,28 +109,28 @@ public class ApplicationCtrl {
 		app.setStatus(1); // 1->accept
 		session.update(app);
 		session.getTransaction().commit();
-		session.close();
-		
-		session = sessionFactory.openSession();
-		session.beginTransaction();
+
 		String rid=app.getRoomID();
-		String hql="select RI.* from RoomInfo RI where RI.roomID='"+rid+"'"; // find the RoomInfo according to App
-		List result = session.createQuery(hql).list();
+		String hql="from RoomInfo RI where RI.roomID='"+rid+"'"; // find the RoomInfo according to App
+		System.out.println("acceptApp");
+		List<RoomInfo> result = (List<RoomInfo>) session.createQuery(hql).list();
 		if(result.size()==0){
 			System.out.println("No relevant RoomInfo");
 			return 0;
 		}
+		System.out.println("application "+result.size());
 		for ( RoomInfo ri : (List<RoomInfo>) result ) {
 			if(isAvailable(app, ri)==1){       // find the RoomInfo which needs to be splited
-				List <RoomInfo>resultOfSplit=splitApplicationTimeFromRoomInfo(app,ri);
+				session.delete(ri);
+				List<RoomInfo> resultOfSplit=splitApplicationTimeFromRoomInfo(app,ri);
 				for (RoomInfo split : (List<RoomInfo>) resultOfSplit){     //save each splits
-					session = sessionFactory.openSession();
+					
 					session.beginTransaction();
-					session.save(split);
-					session.getTransaction().commit();
-					session.close();	
-					return 1; 
+					session.save(split);	
 				}
+				session.getTransaction().commit();
+				session.close();
+				return 1; 
 			}
 		}
 		return 0;
@@ -241,6 +254,7 @@ public class ApplicationCtrl {
 		//¼ì²ébegin±ß½ç
 		if(appBegin.compareTo(riBegin)!=0){
 			RoomInfo riA = ri.clone();
+			System.out.println("app.getDateBegin()==null"+app.getDateBegin()==null);
 			riA.setDateEnd(app.getDateBegin());
 			res.add(riA);
 		}

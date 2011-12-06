@@ -13,7 +13,7 @@ public class Application {
 	private Date timeBegin;
 	private Date timeEnd;
 	private String applyerID;
-	private int status;
+	private int status = 0;
 	private Date applyTime;
 
 	public Application() {
@@ -24,7 +24,7 @@ public class Application {
 			String daysOfWeek, Date timeBegin, Date timeEnd, String applyerID,
 			int status, Date applyTime) {
 		super();
-		this.applyerID = UUID.randomUUID().toString();
+		this.appID = UUID.randomUUID().toString();
 		this.roomID = roomID;
 		this.dateBegin = dateBegin;
 		this.dateEnd = dateEnd;
@@ -130,14 +130,8 @@ public class Application {
 
 	@Override
 	public Application clone() {
-		// TODO Auto-generated method stub
-		try {
-			return (Application) super.clone();
-		} catch (CloneNotSupportedException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		return null;
+		Application app = new Application(roomID, dateBegin, dateEnd, daysOfWeek, timeBegin, timeEnd, applyerID, status, applyTime);
+		return app;
 	}
 
 

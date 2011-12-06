@@ -34,7 +34,11 @@
 				phone = $("#phone").val();
 			
 			//alert(role);
-			uiaccess.register(uname,passwd,role,email,phone,callbackRegister);
+			if(passwd==repasswd){
+				uiaccess.register(uname,passwd,role,email,phone,callbackRegister);
+			}else{
+				alert("password not the same");
+			}
 		});
 	});
 	function callbackRegister(request){
