@@ -2,12 +2,16 @@ package Test;
 
 import java.io.*;
 import java.sql.Connection;
+//import java.sql.Date;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.text.SimpleDateFormat;
+
 import jxl.*;
+import java.util.*;
 
 public class Test {
 	static String createTableSql = "";// 创建数据库的sql
@@ -35,7 +39,7 @@ public class Test {
 			int rowNum = rs.getRows();// 行数
 			System.out.println("colNumrowNum------------------" + rowNum + "行,"
 					+ colNum + "列+");
-			System.out.println("start createｂａｓｅ-------------------------");
+			System.out.println("start create-------------------------");
 			getConntion();
 
 			String sql = getColName(rowNum, colNum);
@@ -44,14 +48,22 @@ public class Test {
 			//Statement stmt = conn.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
 			//stmt.executeUpdate(sql0);
 			String strValue = "";
-			
+			String strTemp="";
 			ps = conn.prepareStatement(sql);
 			System.out.println(sql);
 			for (int i = 0; i < rowNum; i++) {
 				strValue = "";
 				for (int j = 0; j < colNum; j++) {
 					Cell c = rs.getCell(j, i);
+					if(j==2||j==3){
+						strTemp = c.getContents();
+						strValue=stringConventor(strTemp);
+						System.out.println(strValue);
+					}
+					else{
 					strValue = c.getContents();
+					System.out.println(strValue);
+					}
 					ps.setString(j + 1, strValue);
 				}
 				ps.addBatch();
@@ -67,6 +79,13 @@ public class Test {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+	}
+	public String stringConventor(String str){
+		String s[]=str.split("/");
+		//System.out.println(s[0]);
+		//System.out.println(s[1]);
+		//System.out.println(s[2]);
+		return s[2]+"-"+s[1]+"-"+s[0];
 	}
 
 	static String getColName(int rowNum, int colNum) {
