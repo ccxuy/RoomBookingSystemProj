@@ -281,6 +281,13 @@
 		$("#main-content").html(htmlobj.responseText);
 		uiaccess.displayUser(callbackUserTable);
 	}
+	function loadUpload(){
+		$("a").removeClass("current");
+		$("#room-mgr").addClass("current");
+		htmlobj=$.ajax({url:"/se/upload.ajax",async:false});
+		$("#main-content").html("");
+		$("#main-content").html(htmlobj.responseText);
+	}
 	function loadRatio(){
 		$("a").removeClass("current");
 		$("#ratio").addClass("current");
@@ -335,7 +342,7 @@
       <a href="#"><img id="logo" src="resources/images/logo.png" alt="UIC room booking logo" /></a>
       <!-- Sidebar Profile links -->
       <div id="profile-links"> Hello, <a id="username" href="#" title="Edit your profile">user</a>|
-        <a href="login.html" title="Sign Out" onclick="logout()">Sign out</a> </div>
+        <a href="#" title="Sign Out" onclick="logout()">Sign out</a> </div>
       <ul id="main-nav">
         <!-- Accordion Menu -->
         <li> <a id="portal" class="nav-top-item" onclick="loadPortal()">
@@ -348,7 +355,7 @@
         </li>
         <li> <a id="room-mgr" style="display: none; " href="#" class="nav-top-item">Room Info Management</a>
           <ul>
-            <li><a href="#">Upload Room Information</a></li>
+            <li><a href="#" onclick="loadUpload()">Upload Room Information</a></li>
             <li><a href="#">Maintain Room Information </a></li>
           </ul>
         </li>

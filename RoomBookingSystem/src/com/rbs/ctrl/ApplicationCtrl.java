@@ -106,33 +106,33 @@ public class ApplicationCtrl {
 	public int acceptApp(Application app) {
 		Session session = sessionFactory.openSession();
 		session.beginTransaction();
-		app.setStatus(1); // 1->accept
-		session.update(app);
-		session.getTransaction().commit();
+		
 
 		String rid=app.getRoomID();
 		String hql="from RoomInfo RI where RI.roomID='"+rid+"'"; // find the RoomInfo according to App
-		System.out.println("acceptApp");
+		System.out.println("acceptApp  "+hql);
 		List<RoomInfo> result = (List<RoomInfo>) session.createQuery(hql).list();
 		if(result.size()==0){
 			System.out.println("No relevant RoomInfo");
+			session.close();
 			return 0;
 		}
-		System.out.println("application "+result.size());
+		System.out.println("RoomInfo "+result.size());
 		for ( RoomInfo ri : (List<RoomInfo>) result ) {
 			if(isAvailable(app, ri)==1){       // find the RoomInfo which needs to be splited
-				session.delete(ri);
+			
 				List<RoomInfo> resultOfSplit=splitApplicationTimeFromRoomInfo(app,ri);
 				for (RoomInfo split : (List<RoomInfo>) resultOfSplit){     //save each splits
-					
-					session.beginTransaction();
-					session.save(split);	
+					session.save(split);
 				}
-				session.getTransaction().commit();
-				session.close();
-				return 1; 
+				app.setStatus(1); 
+				session.update(app);// 1->accept
+				session.delete(ri);
+				break; 
 			}
 		}
+		session.getTransaction().commit();
+		session.close();
 		return 0;
 	}
 

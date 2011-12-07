@@ -44,7 +44,7 @@ public class User {
 	public void setUid(String uid) {
 		this.uid = uid;
 	}
-	
+
 	public void setUid() {
 		this.uid = UUID.randomUUID().toString();
 	}
@@ -89,4 +89,11 @@ public class User {
 		this.email = email;
 	}
 
+	@Override
+	public String toString() {
+		return "User [uid=" + uid + ", name=" + name + ", permission="
+				+ permission + ", phone=" + phone + ", email=" + email + "]";
+	}
+
+	
 }

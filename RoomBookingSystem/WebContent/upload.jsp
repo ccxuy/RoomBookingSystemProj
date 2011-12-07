@@ -75,7 +75,7 @@
     <!-- Main Content Section with everything -->
     <noscript>
     <!-- Show a notification if the user has disabled javascript -->
-    <div class="notification error png_bg">
+    <div class="notification error png_bg"></div>
     </noscript>
     <!-- Page Head -->
     <h2>Welcome to Room Booking System</h2>
@@ -124,7 +124,8 @@
           </FORM>
         </div>
         <!-- End #tab1 -->
-      
+      </div>
+	  </div>
   <!-- End #main-content -->
 </div>
 </body>

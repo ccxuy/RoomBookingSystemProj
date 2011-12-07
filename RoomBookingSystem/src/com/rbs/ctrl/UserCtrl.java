@@ -161,7 +161,7 @@ public class UserCtrl extends RoomInfoCtrl {
 		Session session = sessionFactory.openSession();
 		Transaction tran=session.beginTransaction();
 		u.setPermission(R_MANAGER);
-		session.save(u);
+		session.update(u);
 		//String hql = "update User as u1 set permission='"+R_MANAGER+"' where u1.name='"+u.getName()+"'";		
 		//Query query=session.createQuery(hql);
 		//int ret=query.executeUpdate();
@@ -186,7 +186,7 @@ public class UserCtrl extends RoomInfoCtrl {
 		//int ret=query.executeUpdate();
 		//System.out.println("Upload Records->"+ret);
 		u.setPermission(R_APPLICANT);
-		session.save(u);
+		session.update(u);
 		tran.commit();
         session.close();
         return 1;

@@ -33,7 +33,7 @@ public class TestHibernate extends TestCase {
 		}
 	}
 	
-	public void testBasicUsage() {
+	/*public void testBasicUsage() {
 		// create a couple of events...
 		Session session = sessionFactory.openSession();
 		session.beginTransaction();
@@ -55,7 +55,7 @@ public class TestHibernate extends TestCase {
         session.getTransaction().commit();
         session.close();
 
-	}
+	}*/
 	/*public void testApplicationHbm() throws ParseException{
 		Session session = sessionFactory.openSession();
 		session.beginTransaction();
@@ -85,15 +85,13 @@ public class TestHibernate extends TestCase {
 	public void testRoomInfoHbm() throws ParseException{
 		Session session = sessionFactory.openSession();
 		session.beginTransaction();
-		java.text.SimpleDateFormat format = new java.text.SimpleDateFormat("yyyy-MM-dd");  
-		java.util.Date dateBegin= format.parse("2011-12-1");   
-		java.util.Date dateEnd= format.parse("2011-12-31");
+		java.text.SimpleDateFormat format = new java.text.SimpleDateFormat("yyyy-MM-dd");
 		DateFormat df=new SimpleDateFormat("hh:mm");
 		RoomInfo a = new RoomInfo();
 		a.setRoomInfoID();
 		a.setRoomID("C201");
-		a.setDateBegin(dateBegin);
-		a.setDateEnd(dateEnd);
+		a.setDateBegin(format.parse("2011-12-1"));
+		a.setDateEnd(format.parse("2011-12-31"));
 		a.setDaysOfWeek("101");
 		a.setTimeBegin(df.parse("10:00"));
 		a.setTimeEnd(df.parse("13:00"));
