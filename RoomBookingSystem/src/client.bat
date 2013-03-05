@@ -1,0 +1,1 @@
+java -Djava.naming.factory.initial=com.sun.jndi.cosnaming.CNCtxFactory -Djava.naming.provider.url=iiop://localhost:9999 com.rbs.rmi.RmiIIOP_Client

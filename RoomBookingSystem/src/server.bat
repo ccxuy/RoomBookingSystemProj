@@ -1,0 +1,2 @@
+start orbd -ORBInitialPort 9999 
+java -Djava.naming.factory.initial=com.sun.jndi.cosnaming.CNCtxFactory -Djava.naming.provider.url=iiop://localhost:9999 -Djava.security.policy=policy com.rbs.rmi.RmiIIOP_Server
